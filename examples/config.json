@@ -1,0 +1,927 @@
+{
+    "adminUids": [
+        "REPLACE_WITH_YOUR_PLAYER_ID"
+    ],
+    "spawnGroups": {
+        "medics": [
+            "BandageDressing",
+            "BandageDressing",
+            "BloodBagEmpty",
+            "SalineBagIV",
+            "Splint",
+            "Morphine",
+            "TetracyclineAntibiotics",
+            "CharcoalTablets",
+            "IodineTincture",
+            "BloodTestKit",
+            "StartKitIV"
+        ],
+        "AKM": [
+            "AKM",
+            "Mag_AKM_Drum75Rnd",
+            "Mag_AKM_Drum75Rnd",
+            "KobraOptic",
+            "Suppressor_AKM",
+            "AK_RailHndgrd_Black",
+            "AK_PlasticBttstck_Black",
+            "Ammo_762x39",
+            "Ammo_762x39",
+            "Ammo_762x39"
+        ],
+        "M4": [
+            "M4A1_Black",
+            "M4_RISHndgrd_Black",
+            "M4_OEBttstck",
+            "Mag_STANAG_30Rnd",
+            "Mag_STANAG_30Rnd",
+            "Mag_STANAG_30Rnd",
+            "ACOGOptic_6x",
+            "M4_Suppressor",
+            "Ammo_556x45",
+            "Ammo_556x45"
+        ],
+        "VS98": [
+            "SV98",
+            "Mag_SV98_10Rnd",
+            "Mag_SV98_10Rnd",
+            "Mag_SV98_10Rnd",
+            "Mag_SV98_10Rnd",
+            "ACOGOptic_6x",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "Rangefinder",
+            "ImprovisedSuppressor"
+        ],
+        "NVGHelmet": [
+            "Mich2000Helmet",
+            "NVGoggles",
+            "Battery9V",
+            "UniversalLight"
+        ],
+        "NVG": [
+            "NVGHeadstrap",
+            "NVGoggles",
+            "Battery9V"
+        ],
+        "mosin": [
+            "Mosin",
+            "Mag_Mosin_5rnd",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "Ammo_762x54",
+            "PUScopeOptic",
+            "Rangefinder",
+            "ImprovisedSuppressor"
+        ],
+        "backpack": [
+            "MountainBag_Green"
+        ],
+        "clothingFullGhillie": [
+            "GhillieSuit_Mossy",
+            "GhillieHood_Mossy"
+        ],
+        "tundra": [
+            "Winchester70",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "HuntingOptic",
+            "ImprovisedSuppressor"
+        ],
+        "tundraBlack": [
+            "Winchester70_Black",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "HuntingOptic",
+            "ImprovisedSuppressor"
+        ],
+        "deagle": [
+            "Deagle",
+            "PistolOptic",
+            "Mag_Deagle_9rnd",
+            "Mag_Deagle_9rnd",
+            "Mag_Deagle_9rnd",
+            "PistolSuppressor",
+            "FNP45_MRDSOptic",
+            "Battery9V",
+            "Ammo_357",
+            "Ammo_357"
+        ],
+        "adminAmmo": [
+            "Ammo_357",
+            "Ammo_357",
+            "Ammo_357",
+            "Ammo_357",
+            "Ammo_357",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "Ammo_308Win",
+            "Ammo_556x45",
+            "Ammo_556x45",
+            "Ammo_556x45",
+            "Ammo_556x45",
+            "Ammo_556x45",
+            "Ammo_556x45"
+        ],
+        "adminGear": [
+            "AliceBag_Black",
+            "CargoPants_Black",
+            "WitchHoodCoif_Black",
+            "PlateCarrierVest_Black",
+            "PlateCarrierHolster_Black",
+            "PlateCarrierPouches_Black",
+            "CombatBoots_Black",
+            "TacticalGloves_Black",
+            "M65Jacket_Black",
+            "MilitaryBelt",
+            "Canteen",
+            "NylonKnifeSheath",
+            "FangeKnife",
+            "Battery9V",
+            "PersonalRadio"
+        ],
+        "FX45": [
+            "FNP45_MRDSOptic",
+            "Battery9V",
+            "Ammo_45ACP",
+            "Ammo_45ACP",
+            "Ammo_45ACP",
+            "Mag_FNX45_15Rnd",
+            "Mag_FNX45_15Rnd",
+            "Mag_FNX45_15Rnd",
+            "FNX45"
+        ],
+        "food": [
+            "BakedBeansCan",
+            "CrabCan",
+            "PeachesCan",
+            "PorkCan",
+            "SardinesCan",
+            "SpaghettiCan",
+            "TacticalBaconCan",
+            "TunaCan",
+            "CanOpener"
+        ],
+        "drinks": [
+            "SodaCan_Cola",
+            "SodaCan_Fronta",
+            "SodaCan_Kvass",
+            "SodaCan_Pipsi",
+            "SodaCan_Spite"
+        ],
+        "beer": [
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass",
+            "SodaCan_Kvass"
+        ],
+        "wolves": [
+            "Animal_CanisLupus_Grey",
+            "Animal_CanisLupus_White",
+            "Animal_CanisLupus_Grey",
+            "Animal_CanisLupus_White",
+            "Animal_CanisLupus_Grey",
+            "Animal_CanisLupus_White"
+        ],
+        "bear": [
+            "Animal_UrsusArctos"
+        ]
+    },
+    "teleportLocations": {
+        "Altar": [
+            8090.49,
+            0,
+            9326.95
+        ],
+        "Balota": [
+            4393.72,
+            0,
+            2412.05
+        ],
+        "Balota Airstrip": [
+            5025.65,
+            0,
+            2363.44
+        ],
+        "Bashnya": [
+            4156.51,
+            0,
+            11747.3
+        ],
+        "Bay Mutnaya": [
+            5634.24,
+            0,
+            1947.33
+        ],
+        "Bay Tikhaya": [
+            1190.83,
+            0,
+            2194.76
+        ],
+        "Bay Zelenaya": [
+            11140.8,
+            0,
+            3090.17
+        ],
+        "Belaya Polana": [
+            14148.2,
+            0,
+            15004.2
+        ],
+        "Berezhki": [
+            15152.5,
+            0,
+            13815.7
+        ],
+        "Berezino": [
+            11856.3,
+            0,
+            8991.54
+        ],
+        "Berezino Lumberyard": [
+            12661.3,
+            0,
+            9590.91
+        ],
+        "Berezino Shipyard": [
+            13179,
+            0,
+            10213.6
+        ],
+        "Black Forest": [
+            9083.59,
+            0,
+            7555.09
+        ],
+        "Black Lake": [
+            13360.8,
+            0,
+            11902.4
+        ],
+        "Black Mtn": [
+            10246.3,
+            0,
+            11984
+        ],
+        "Bogatyrka": [
+            1504.85,
+            0,
+            8940.5
+        ],
+        "Bor": [
+            3317.02,
+            0,
+            4014.26
+        ],
+        "Cap Golova": [
+            8350.07,
+            0,
+            2443.64
+        ],
+        "Cernaya Polana": [
+            12200,
+            0,
+            13666.5
+        ],
+        "Chernogorsk": [
+            6572.9,
+            0,
+            2447.53
+        ],
+        "Chernogorsk Factory": [
+            6406.17,
+            0,
+            2710.03
+        ],
+        "Chyornaya Bay": [
+            7706.96,
+            0,
+            3087.25
+        ],
+        "Crown Castle": [
+            1430,
+            0,
+            9218.07
+        ],
+        "Deep Lake": [
+            1853.38,
+            0,
+            14860.8
+        ],
+        "Devil's Castle": [
+            6909.76,
+            0,
+            11371.5
+        ],
+        "Dichina Military": [
+            4622.19,
+            0,
+            8283.76
+        ],
+        "Dobroe": [
+            13096.3,
+            0,
+            14953.2
+        ],
+        "Dolina": [
+            11327.4,
+            0,
+            6645.57
+        ],
+        "Drakon Island": [
+            11186,
+            0,
+            2491.77
+        ],
+        "Drozhino": [
+            3446.32,
+            0,
+            4929.12
+        ],
+        "Dubky": [
+            6653.59,
+            0,
+            3674.47
+        ],
+        "Dubrovka": [
+            10397.6,
+            0,
+            9795.56
+        ],
+        "Dubrovka Vyshnaya": [
+            9952.95,
+            0,
+            10392.8
+        ],
+        "Electrozavodsk": [
+            10502.8,
+            0,
+            2336.88
+        ],
+        "Electrozavodsk Power": [
+            10358.1,
+            0,
+            2593.85
+        ],
+        "Electrozavodsk Shipyard": [
+            9961.48,
+            0,
+            1788.85
+        ],
+        "Gnome Castle": [
+            7410.93,
+            0,
+            9114.04
+        ],
+        "Gorka": [
+            9646.16,
+            0,
+            8810.25
+        ],
+        "Green Mtn": [
+            3744.3,
+            0,
+            6013.15
+        ],
+        "Grishino": [
+            6018.26,
+            0,
+            10256.4
+        ],
+        "Grozovoy Pass": [
+            3237.3,
+            0,
+            15293.5
+        ],
+        "Guba": [
+            14609.1,
+            0,
+            13283.4
+        ],
+        "Guglovo": [
+            8411.8,
+            0,
+            6687.87
+        ],
+        "Gvozdno": [
+            8706.38,
+            0,
+            11895.1
+        ],
+        "Kabanino": [
+            5298.35,
+            0,
+            8563.76
+        ],
+        "Kamenka": [
+            1892.27,
+            0,
+            2155.87
+        ],
+        "Kamensk": [
+            6633.17,
+            0,
+            14466.6
+        ],
+        "Kamyshovo": [
+            12170.8,
+            0,
+            3447.95
+        ],
+        "Karmanovka": [
+            12519.8,
+            0,
+            14679.5
+        ],
+        "Khelm": [
+            12286.8,
+            0,
+            10794.4
+        ],
+        "Klen Mtn": [
+            11491.7,
+            0,
+            11331.2
+        ],
+        "Komarovo": [
+            3619.86,
+            0,
+            2342.53
+        ],
+        "Kozlova Mtn": [
+            8826.96,
+            0,
+            2858.41
+        ],
+        "Kozlovka": [
+            4451.57,
+            0,
+            4577.18
+        ],
+        "Krasnoe": [
+            6486.37,
+            0,
+            14981.9
+        ],
+        "Krasnostav": [
+            11228.8,
+            0,
+            12223.2
+        ],
+        "Krasnostav Airstrip": [
+            12016.2,
+            0,
+            12490.1
+        ],
+        "Krutoy Cap": [
+            13624.7,
+            0,
+            3892.25
+        ],
+        "Kumyrna": [
+            8403.05,
+            0,
+            6030.65
+        ],
+        "Lopatino": [
+            2749.87,
+            0,
+            9991.8
+        ],
+        "Mamino": [
+            7981.69,
+            0,
+            13057.3
+        ],
+        "Map Edge NE": [
+            15321.2,
+            0,
+            15327.5
+        ],
+        "Map Edge NW": [
+            44.12,
+            0,
+            15330.9
+        ],
+        "Map Edge SW": [
+            19.82,
+            0,
+            1584.2
+        ],
+        "Mogilevka": [
+            7502.8,
+            0,
+            5237.32
+        ],
+        "Msta": [
+            11258.3,
+            0,
+            5511.28
+        ],
+        "Myshkino": [
+            2056.57,
+            0,
+            7425.29
+        ],
+        "Myshkino Military": [
+            1266.66,
+            0,
+            7225.99
+        ],
+        "Myshkino Trainyard": [
+            885.72,
+            0,
+            7696.21
+        ],
+        "Nadezhdino": [
+            5821.39,
+            0,
+            4764.33
+        ],
+        "Nagornoe": [
+            9333.93,
+            0,
+            14666.9
+        ],
+        "Nizhnoye": [
+            12895.4,
+            0,
+            8040.79
+        ],
+        "Novaya Petrovka": [
+            3471.91,
+            0,
+            12988.1
+        ],
+        "Novaya Trainyard": [
+            3526.6,
+            0,
+            12579.7
+        ],
+        "Novodmitrovsk": [
+            11595,
+            0,
+            14696.5
+        ],
+        "Novoselky": [
+            6052.29,
+            0,
+            3285.59
+        ],
+        "Novy Sobor": [
+            7159.26,
+            0,
+            7688.51
+        ],
+        "NW Airfield ATC": [
+            4618.3,
+            0,
+            10439.2
+        ],
+        "NW Airfield Range": [
+            5373.21,
+            0,
+            9979.8
+        ],
+        "NW Airfield South": [
+            4520.11,
+            0,
+            9421.26
+        ],
+        "NW Airfield Tents": [
+            4163.31,
+            0,
+            11014.2
+        ],
+        "Olha": [
+            13320.9,
+            0,
+            12893
+        ],
+        "Oreshka Pass": [
+            9877.39,
+            0,
+            6009.26
+        ],
+        "Orlovets": [
+            12136.3,
+            0,
+            7281.89
+        ],
+        "Orlovets Factory": [
+            11489.7,
+            0,
+            7592.98
+        ],
+        "Otmel Island": [
+            11642.9,
+            0,
+            3095.52
+        ],
+        "Pavlovo": [
+            1626.37,
+            0,
+            3846.56
+        ],
+        "Pavlovo Military": [
+            2101.77,
+            0,
+            3290.93
+        ],
+        "Pogorevka": [
+            4376.71,
+            0,
+            6413.21
+        ],
+        "Polana": [
+            10678.7,
+            0,
+            8090.18
+        ],
+        "Polesovo": [
+            5817,
+            0,
+            13490
+        ],
+        "Prigorodki": [
+            7984.89,
+            0,
+            3302.17
+        ],
+        "Prud Lake": [
+            6627.34,
+            0,
+            9288.07
+        ],
+        "Pulkovo": [
+            4902.36,
+            0,
+            5650.65
+        ],
+        "Pusta": [
+            9176.44,
+            0,
+            3858.71
+        ],
+        "Pustoshka": [
+            2992.21,
+            0,
+            7805.54
+        ],
+        "Ratnoe": [
+            6305.55,
+            0,
+            12708.4
+        ],
+        "Rify": [
+            13783.2,
+            0,
+            11233
+        ],
+        "Rog Castle": [
+            11255,
+            0,
+            4293.29
+        ],
+        "Rogovo": [
+            4731,
+            0,
+            6775.61
+        ],
+        "Romashka": [
+            8148.5,
+            0,
+            11015.2
+        ],
+        "Schadenfreude Island": [
+            24000,
+            0,
+            0
+        ],
+        "Severograd": [
+            7893.4,
+            0,
+            12576.3
+        ],
+        "Shakhovka": [
+            9670.8,
+            0,
+            6495.85
+        ],
+        "Silence Lake": [
+            1203.95,
+            0,
+            6507.42
+        ],
+        "Sinystok": [
+            1447.49,
+            0,
+            11924.2
+        ],
+        "Skalisty Castle": [
+            13494,
+            0,
+            3254.96
+        ],
+        "Skalisty Island": [
+            13661.2,
+            0,
+            2960.38
+        ],
+        "Skvsch Biathlon Arena": [
+            488.57,
+            0,
+            11118.7
+        ],
+        "Smirnovo": [
+            11629.3,
+            0,
+            15023.1
+        ],
+        "Solnichniy": [
+            13469.1,
+            0,
+            6239
+        ],
+        "Solnichniy Factory": [
+            13069.6,
+            0,
+            7161.34
+        ],
+        "Sosnovka": [
+            2512.53,
+            0,
+            6371.41
+        ],
+        "Sosnovy Pass": [
+            2736.13,
+            0,
+            6757.38
+        ],
+        "Staroye": [
+            10164.2,
+            0,
+            5460.93
+        ],
+        "Stary Sobor": [
+            6072.64,
+            0,
+            7748.56
+        ],
+        "Stary Yar": [
+            4935.61,
+            0,
+            15068
+        ],
+        "Storozh Island (Prison)": [
+            2611.2,
+            0,
+            1306.15
+        ],
+        "Svergino": [
+            9533.2,
+            0,
+            13728.4
+        ],
+        "Svetlojarsk": [
+            13931.9,
+            0,
+            13231.4
+        ],
+        "Three Crosses Gas": [
+            312.94,
+            0,
+            9362.44
+        ],
+        "Three Valleys": [
+            12842.1,
+            0,
+            5500.33
+        ],
+        "Tisy": [
+            3413.75,
+            0,
+            14810.3
+        ],
+        "Tisy Military": [
+            1681.3,
+            0,
+            14116.6
+        ],
+        "Topolka Dam": [
+            10280.5,
+            0,
+            3507.5
+        ],
+        "Topolniki": [
+            2821.19,
+            0,
+            12366.5
+        ],
+        "Troitskoe": [
+            7559.44,
+            0,
+            13515.9
+        ],
+        "Troitskoe Military": [
+            7866.4,
+            0,
+            14676.1
+        ],
+        "Tulga": [
+            12808.7,
+            0,
+            4457.13
+        ],
+        "Turovo": [
+            13576.5,
+            0,
+            14128.6
+        ],
+        "Vavilovo": [
+            2211.83,
+            0,
+            11016.4
+        ],
+        "Veresnik Mtn": [
+            4439.42,
+            0,
+            8078.14
+        ],
+        "Vybor": [
+            3800,
+            0,
+            8844.25
+        ],
+        "Vyshnoye": [
+            6532.61,
+            0,
+            6090.53
+        ],
+        "Vysotovo": [
+            5616.26,
+            0,
+            2561.77
+        ],
+        "Willow Lake": [
+            13254.2,
+            0,
+            11607.8
+        ],
+        "Zabolotye": [
+            1156.26,
+            0,
+            10006.2
+        ],
+        "Zaprudnoe": [
+            4927.47,
+            0,
+            13027.2
+        ],
+        "Zelenogorsk": [
+            2713.4,
+            0,
+            5391.75
+        ],
+        "Zelenogorsk Trainyard": [
+            2490.65,
+            0,
+            5151.76
+        ],
+        "Zub Castle": [
+            6541.79,
+            0,
+            5591.69
+        ],
+        "Zvir": [
+            477.35,
+            0,
+            5202.98
+        ],
+        "EastCoastOilrig": [
+            14572.282227,
+            45.5,
+            7251.785645
+        ],
+        "SouthCoastOilrig": [
+            6049.520020,
+            7.500000,
+            520.278015
+        ],
+        "SeaPlatform": [
+            2703.715088,
+            -22.9,
+            683.262634
+        ]
+    }
+}

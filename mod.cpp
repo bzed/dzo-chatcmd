@@ -1,0 +1,11 @@
+name = "AdminTools";
+picture = "";
+logo = "";
+logoSmall = "";
+logoOver = "";
+tooltip = "AdminTools";
+overview = "";
+action = "";
+author = "";
+authorID = "";
+version = "1.0";
