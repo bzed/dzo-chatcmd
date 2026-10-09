@@ -2,6 +2,18 @@
     "adminUids": [
         "REPLACE_WITH_YOUR_PLAYER_ID"
     ],
+    "verbose": false,
+    "auditLog": true,
+    "notifyTargets": false,
+    "maxSpawnCount": 50,
+    "vehicles": [
+        "OffroadHatchback",
+        "Sedan_02",
+        "Hatchback_02",
+        "Truck_01_Covered",
+        "Truck_01_Open",
+        "CivilianSedan"
+    ],
     "spawnGroups": {
         "medics": [
             "BandageDressing",
@@ -914,8 +926,8 @@
             7251.785645
         ],
         "SouthCoastOilrig": [
-            6049.520020,
-            7.500000,
+            6049.52002,
+            7.5,
             520.278015
         ],
         "SeaPlatform": [
