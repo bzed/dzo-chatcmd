@@ -1,4 +1,4 @@
-// AdminTools - server-side admin chat commands for DayZ
+// dzo_chatcmd - server-side admin chat commands for DayZ
 // Copyright (C) 2026 Bernd Zeimetz
 //
 // This program is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ class ATContext
 
 	void Reply(string text)
 	{
-		admin.MessageStatus("[AdminTools] " + text);
+		admin.MessageStatus("[dzo_chatcmd] " + text);
 	}
 
 	// Long lists are split into several chat lines
@@ -72,7 +72,7 @@ class ATContext
 	void NotifyTarget(PlayerBase target, string text)
 	{
 		if (target != admin && ATConfig.Get().notifyTargets)
-			target.MessageStatus("[AdminTools] " + text);
+			target.MessageStatus("[dzo_chatcmd] " + text);
 	}
 
 	// Resolves a player name (case-insensitive, partial allowed). Tells the admin if nothing / too much matched.

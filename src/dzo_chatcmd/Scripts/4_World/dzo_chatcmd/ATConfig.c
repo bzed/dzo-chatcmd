@@ -1,4 +1,4 @@
-// AdminTools - server-side admin chat commands for DayZ
+// dzo_chatcmd - server-side admin chat commands for DayZ
 // Copyright (C) 2026 Bernd Zeimetz
 //
 // This program is free software: you can redistribute it and/or modify
@@ -34,9 +34,11 @@ class ATSettings
 
 class ATConfig
 {
-	static const string DIR = "$profile:AdminTools";
-	static const string FILE = "$profile:AdminTools/config.json";
-	static const string AUDIT_FILE = "$profile:AdminTools/audit.log";
+	static const string DIR = "$profile:dzo_chatcmd";
+	static const string FILE = "$profile:dzo_chatcmd/config.json";
+	// location used by this mod before it was renamed from AdminTools
+	static const string LEGACY_FILE = "$profile:AdminTools/config.json";
+	static const string AUDIT_FILE = "$profile:dzo_chatcmd/audit.log";
 
 	protected static ref ATSettings s_Data;
 
@@ -50,6 +52,15 @@ class ATConfig
 	static void Load()
 	{
 		ATSettings data = new ATSettings();
+
+		if (!FileExist(FILE) && FileExist(LEGACY_FILE))
+		{
+			MakeDirectory(DIR);
+			if (CopyFile(LEGACY_FILE, FILE))
+				ATLog.Info("Migrated config from " + LEGACY_FILE + " to " + FILE + " (old file left in place).");
+			else
+				ATLog.Info("Could not copy " + LEGACY_FILE + " to " + FILE);
+		}
 
 		if (FileExist(FILE))
 		{

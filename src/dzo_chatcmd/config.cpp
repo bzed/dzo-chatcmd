@@ -1,4 +1,4 @@
-// AdminTools - server-side admin chat commands for DayZ
+// dzo_chatcmd - server-side admin chat commands for DayZ
 // Copyright (C) 2026 Bernd Zeimetz
 //
 // This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 
 class CfgPatches
 {
-	class AdminTools
+	class dzo_chatcmd
 	{
 		units[] = {};
 		weapons[] = {};
@@ -28,10 +28,10 @@ class CfgPatches
 
 class CfgMods
 {
-	class AdminTools
+	class dzo_chatcmd
 	{
 		type = "servermod";
-		name = "AdminTools";
+		name = "dzo_chatcmd";
 		credits = "bzed";
 		author = "bzed";
 		version = "2.0";
@@ -42,12 +42,12 @@ class CfgMods
 			class worldScriptModule
 			{
 				value = "";
-				files[] = {"AdminTools/Scripts/4_World"};
+				files[] = {"dzo_chatcmd/Scripts/4_World"};
 			};
 			class missionScriptModule
 			{
 				value = "";
-				files[] = {"AdminTools/Scripts/5_Mission"};
+				files[] = {"dzo_chatcmd/Scripts/5_Mission"};
 			};
 		};
 	};

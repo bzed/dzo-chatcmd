@@ -1,4 +1,4 @@
-// AdminTools - server-side admin chat commands for DayZ
+// dzo_chatcmd - server-side admin chat commands for DayZ
 // Copyright (C) 2026 Bernd Zeimetz
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,10 +15,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// Logging: everything goes to the script log, admin actions also to $profile:AdminTools/audit.log.
+// Logging: everything goes to the script log, admin actions also to $profile:dzo_chatcmd/audit.log.
 class ATLog
 {
-	static const string TAG = "[AdminTools] ";
+	static const string TAG = "[dzo_chatcmd] ";
 
 	static void Info(string msg)
 	{

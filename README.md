@@ -1,4 +1,4 @@
-# AdminTools
+# dzo_chatcmd
 
 Server-side admin chat commands for DayZ. **Servermod only: players never need to download anything**, and
 the mod will not grow a client part (tested: a client without the mod joins and gets all replies).
@@ -7,15 +7,20 @@ Runs on **1.29 stable and 1.30** from the same PBO (tested on 1.29.163709 and 1.
 
 ## Install
 
-1. Build/sign: `dayz-mod-pack.sh build`, copy `build/@AdminTools` to the server, put `keys/AdminTools.bikey` into the server's `keys/`.
-2. Start with `-servermod=@AdminTools`.
-3. First start writes `profiles/AdminTools/config.json`. Put your player ID into `adminUids`
+1. Build/sign: `dayz-mod-pack.sh build`, copy `build/@dzo_chatcmd` to the server, put `keys/dzo_chatcmd.bikey` into the server's `keys/`.
+2. Start with `-servermod=@dzo_chatcmd`.
+3. First start writes `profiles/dzo_chatcmd/config.json`. Put your player ID into `adminUids`
    (type `/myid` in chat, or read it from the `.ADM` log: `Player "name"(id=...)`) and restart the server.
    Later edits to the file can be applied with `/reload`.
 4. **1.30:** `-profiles=` must be a folder inside the server directory (symlink is fine). The mod reads and writes
    `$profile:` files directly (no `FindFile`), so nothing else is needed.
 
 `examples/config.json` is a ready-made config (spawn groups and Chernarus teleport locations from AdminTools 1.x).
+
+**Renamed from AdminTools.** On first start the mod copies `profiles/AdminTools/config.json` to
+`profiles/dzo_chatcmd/config.json` if the new file does not exist yet (old files are left alone). The new mod
+has a new PBO name and key: replace `AdminTools.bikey` with `dzo_chatcmd.bikey` and `-servermod=@AdminTools`
+with `-servermod=@dzo_chatcmd`.
 
 ## Commands
 
@@ -46,10 +51,10 @@ partial player/location/group names work (`/tp chern`), ambiguous ones are liste
 | `/time [HH[:MM] \| day \| night]` | show/set time |
 | `/reload` | reload config.json |
 
-## Config (`profiles/AdminTools/config.json`)
+## Config (`profiles/dzo_chatcmd/config.json`)
 
 `adminUids`, `spawnGroups`, `teleportLocations` (as in 1.x), plus `vehicles` (class names for `/car`), `vehicleAliases` (short name -> base class; colors are looked up as `<class>_<Color>`, the boat alias points to `Boat_01` because vanilla has no `Rubber_Boat`),
-`maxSpawnCount`, `auditLog` (write `profiles/AdminTools/audit.log`), `verbose` (extra script-log output),
+`maxSpawnCount`, `auditLog` (write `profiles/dzo_chatcmd/audit.log`), `verbose` (extra script-log output),
 `godModeOnLogin` (admins start every session in god mode, default off), `notifyTargets` (tell a healed/brought player; default off).
 
 ## Privacy: what other players can see
@@ -75,7 +80,7 @@ deliberately never requires.
 
 ## Layout
 
-`src/AdminTools/Scripts/4_World/AdminTools/` (config, commands, helpers, `PlayerBase` flags),
+`src/dzo_chatcmd/Scripts/4_World/dzo_chatcmd/` (config, commands, helpers, `PlayerBase` flags),
 `5_Mission/MissionServer.c` (chat hook). Add a command: one `ATCommandInfo` line in `ATCommands.GetCommands()`
 (this is also the help text), one `case` in `Run()`, one handler.
 
