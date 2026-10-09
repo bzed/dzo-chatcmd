@@ -1,5 +1,5 @@
 // dzo_chatcmd - server-side admin chat commands for DayZ
-// Copyright (C) 2026 Bernd Zeimetz
+// Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published

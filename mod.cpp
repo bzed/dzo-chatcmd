@@ -1,5 +1,5 @@
 // dzo_chatcmd - server-side admin chat commands for DayZ
-// Copyright (C) 2026 Bernd Zeimetz
+// Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -21,8 +21,8 @@ logo = "";
 logoSmall = "";
 logoOver = "";
 tooltip = "Server-side admin chat commands";
-overview = "Server-side admin chat commands: teleport, heal, spawn, vehicles, god mode and more. Replies and audit log stay private to the admin.";
-action = "https://coldbrewz.at";
-author = "bzed";
+overview = "Server-side admin chat commands: teleport, heal, spawn items and vehicles, god mode, broadcast and more. Servermod only, players download nothing.";
+action = "";
+author = "dzo";
 authorID = "";
-version = "2.0";
+version = "1.0";

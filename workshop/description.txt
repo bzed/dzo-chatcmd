@@ -1,0 +1,92 @@
+[h1]dzo_chatcmd[/h1]
+
+Admin commands typed into the normal in-game chat, for [b]server owners[/b]: teleport, heal, spawn items and vehicles, god mode, broadcast and more. It is a [b]server-side mod only[/b]: players do not download anything and your server stays vanilla for them.
+
+[b]Supported DayZ versions:[/b] 1.29 and 1.30. No other mods needed.
+
+[h2]What you get[/h2]
+
+[list]
+[*] About 20 chat commands for admins, such as [b]/tp[/b], [b]/heal[/b], [b]/spawn[/b], [b]/car[/b], [b]/godmode[/b], [b]/nearby[/b] and [b]/broadcast[/b]. Type [b]/help[/b] in game for the list.
+[*] Only the player IDs you put into the config are obeyed. Everybody else's commands are ignored.
+[*] Answers, errors and help texts are sent [b]only to the admin[/b]. Players who get healed or teleported are not told (can be switched on).
+[*] An audit log file records who ran what and when.
+[*] Short names are enough: [b]/tp chernogorsk[/b] works in any letter case, [b]/tp balota air[/b] finds Balota Airstrip, [b]/goto joh[/b] finds the player Johnny. If a name is ambiguous, the matches are listed back to you.
+[*] Vehicles with easy names and colors: [b]/car ada[/b] spawns a fully equipped car, [b]/car ada blue[/b] a blue one.
+[/list]
+
+[h2]Commands[/h2]
+
+[table]
+[tr][th]Command[/th][th]What it does[/th][/tr]
+[tr][td][b]/help[/b] [command][/td][td]List the commands, or show details of one[/td][/tr]
+[tr][td][b]/myid[/b][/td][td]Show your player ID (for the config; works for everybody)[/td][/tr]
+[tr][td][b]/players[/b][/td][td]Online players with their distance to you[/td][/tr]
+[tr][td][b]/nearby[/b][/td][td]Players within 1000 m, nearest first, at most 10[/td][/tr]
+[tr][td][b]/pos[/b] [player][/td][td]Show a position[/td][/tr]
+[tr][td][b]/tp[/b] <location | player | x z>[/td][td]Teleport yourself[/td][/tr]
+[tr][td][b]/goto[/b] <player>, [b]/bring[/b] <player>[/td][td]Teleport to a player / fetch a player[/td][/tr]
+[tr][td][b]/back[/b][/td][td]Return to where you were before the last teleport[/td][/tr]
+[tr][td][b]/locations[/b] [filter][/td][td]List the teleport locations from the config[/td][/tr]
+[tr][td][b]/heal[/b] [player][/td][td]Health, blood, food, water, diseases, bleeding, broken legs[/td][/tr]
+[tr][td][b]/fixgear[/b] [player][/td][td]Repair everything in the inventory[/td][/tr]
+[tr][td][b]/kill[/b] [player], [b]/kick[/b] <player> [reason][/td][td]Kill / disconnect a player[/td][/tr]
+[tr][td][b]/godmode[/b] [0|1][/td][td]Damage immunity (no argument: toggle)[/td][/tr]
+[tr][td][b]/ammo[/b] [0|1], [b]/stamina[/b] [0|1][/td][td]Unlimited ammo (weapons with magazines) / stamina[/td][/tr]
+[tr][td][b]/spawn[/b] <classname> [count][/td][td]Spawn items at your feet (the class name is checked first)[/td][/tr]
+[tr][td][b]/spawngroup[/b] [group][/td][td]Spawn a group of items from the config, e.g. a medic kit or a weapon set[/td][/tr]
+[tr][td][b]/car[/b] <name> [color][/td][td]Spawn a fully equipped vehicle[/td][/tr]
+[tr][td][b]/repair[/b][/td][td]Repair and refuel the vehicle you are sitting in[/td][/tr]
+[tr][td][b]/time[/b] [HH[:MM] | day | night][/td][td]Show or set the server time[/td][/tr]
+[tr][td][b]/broadcast[/b] <message>[/td][td]Send a message to all players[/td][/tr]
+[tr][td][b]/reload[/b][/td][td]Reload the config file[/td][/tr]
+[/table]
+
+[b]/car names:[/b] ada (OffroadHatchback), gunter (Hatchback_02), olga (CivilianSedan), sarka (Sedan_02), truck (Truck_01_Covered), humvee (Offroad_02), boat (Boat_01). You can change and add names in the config. Colors are the vanilla variants; if a vehicle does not have the color you asked for, the available ones are listed.
+
+[h2]Server owners: quick start[/h2]
+
+[olist]
+[*] Get this mod from the Steam Workshop and put it into your server directory.
+[*] Start the server with the mod as a [b]server mod[/b]:
+[code]-servermod=@dzo_chatcmd -profiles=profiles[/code]
+Use [b]-servermod=[/b], not -mod=. Players do not have to do anything.
+[*] If your server checks signatures, copy the .bikey from the mod's keys folder into the keys folder of your server.
+[*] Start the server once. It creates [b]profiles/dzo_chatcmd/config.json[/b].
+[*] Find your player ID: type [b]/myid[/b] in the chat (it answers to you), or look for your name in the newest .ADM log file in the profiles folder. Put the ID into [b]adminUids[/b] in config.json and restart the server. Later changes to the file can be applied in game with [b]/reload[/b].
+[/olist]
+
+[b]DayZ 1.30:[/b] the profiles folder must be inside the server directory (a symlink there is fine), as for every server on 1.30.
+
+[b]Coming from AdminTools?[/b] This mod is the renamed and rewritten AdminTools. On the first start your old profiles/AdminTools/config.json is copied to profiles/dzo_chatcmd/config.json automatically.
+
+[h2]Settings[/h2]
+
+The file [b]config.json[/b] holds the admin IDs, the teleport locations, the spawn groups, the vehicle names and a few switches:
+
+[list]
+[*] [b]adminUids[/b]: player IDs that may use the commands
+[*] [b]teleportLocations[/b]: name and x, y, z for /tp and /locations
+[*] [b]spawnGroups[/b]: name and a list of class names for /spawngroup
+[*] [b]vehicles[/b] and [b]vehicleAliases[/b]: what /car can spawn and under which short names
+[*] [b]maxSpawnCount[/b]: upper limit for /spawn (default 50)
+[*] [b]godModeOnLogin[/b]: admins start every session in god mode (default off)
+[*] [b]notifyTargets[/b]: tell a player when an admin healed, repaired or teleported them (default off)
+[*] [b]auditLog[/b]: write profiles/dzo_chatcmd/audit.log (default on)
+[*] [b]verbose[/b]: more detail in the script log (default off)
+[/list]
+
+[h2]Good to know[/h2]
+
+[list]
+[*] [b]Others can see the command line.[/b] DayZ sends every chat line to the other players itself, and a server-only mod cannot stop that. The [i]answers[/i] are private, the [i]command text you type[/i] is not. Type commands where nobody listens, or in a chat channel with nobody in range. Only /broadcast is meant for everybody.
+[*] [b]No /invisible.[/b] Making a player invisible to the others cannot be done from the server alone (tested), and this mod will never need a client part.
+[*] Chat only carries player names. If two players have the same name, commands are refused, so nobody can copy an admin's name to run commands.
+[*] /ammo does not refill weapons with an internal magazine (Mosin, shotguns).
+[/list]
+
+[h2]License[/h2]
+
+Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>. Free software under the GNU Affero General Public License, version 3 or later (AGPL-3.0-or-later).
+
+[i]This mod is not affiliated or authorized by Bohemia Interactive a.s. Bohemia Interactive, ARMA, DAYZ and all associated logos and designs are trademarks or registered trademarks of Bohemia Interactive a.s.[/i]
