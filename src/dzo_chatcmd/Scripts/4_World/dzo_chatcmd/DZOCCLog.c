@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// Logging: everything goes to the script log, admin actions also to $profile:dzo_chatcmd/audit.log.
+// Logging: everything goes to the script log, admin actions also to $profile:dzo/chatcmd/audit.log.
 class DZOCCLog
 {
 	static const string TAG = "[dzo_chatcmd] ";

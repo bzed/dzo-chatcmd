@@ -1,5 +1,7 @@
 # dzo_chatcmd
 
+<p align="center"><img src="workshop/preview-square.png" alt="dzo_chatcmd" width="256"></p>
+
 Admin commands for DayZ, typed into the normal in-game chat: teleport, heal, spawn items and vehicles,
 god mode, broadcast and more.
 
@@ -31,7 +33,7 @@ Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>. Licensed AGPL-3.0-or-later, se
 2. Start the server with it as a **server mod**: `-servermod=@dzo_chatcmd -profiles=profiles`
    (`-servermod`, not `-mod`: clients never see it).
 3. If the server verifies signatures, copy `keys/dzo_chatcmd.bikey` into the server's `keys/` folder.
-4. Start the server once. It writes `profiles/dzo_chatcmd/config.json` with defaults.
+4. Start the server once. It writes `profiles/dzo/chatcmd/config.json` with defaults.
 5. Get your player ID: type `/myid` in chat (the answer goes only to you), or read it from the newest `.ADM`
    log: `Player "name"(id=...)`. Put it into `adminUids` and restart. Later config edits are applied with `/reload`.
 
@@ -42,7 +44,7 @@ fine), like for every server on 1.30. The mod reads and writes `$profile:` paths
 Without any entry in `adminUids` all commands except `/myid` are disabled; the log says so on startup.
 
 `examples/config.json` is a complete example (Chernarus teleport locations, spawn groups, vehicle names, all
-switches) to copy to `profiles/dzo_chatcmd/config.json`. Replace the placeholder ID in it with yours.
+switches) to copy to `profiles/dzo/chatcmd/config.json`. Replace the placeholder ID in it with yours.
 
 ## Commands
 
@@ -106,7 +108,7 @@ none). Plain class names from `vehicles` work as well (`/car Sedan_02_Grey`).
 
 ## Configuration
 
-`profiles/dzo_chatcmd/config.json`. Missing keys keep their defaults; a file that cannot be parsed is reported in the
+`profiles/dzo/chatcmd/config.json`. Missing keys keep their defaults; a file that cannot be parsed is reported in the
 script log and the previous settings stay active (it never falls back to "everybody is admin").
 Booleans may be `true`/`false`.
 
@@ -127,8 +129,8 @@ Booleans may be `true`/`false`.
 
 | File | Content |
 |---|---|
-| `profiles/dzo_chatcmd/config.json` | the configuration (created with defaults on first start) |
-| `profiles/dzo_chatcmd/audit.log` | one line per admin action: time, name, player ID, what was done |
+| `profiles/dzo/chatcmd/config.json` | the configuration (created with defaults on first start) |
+| `profiles/dzo/chatcmd/audit.log` | one line per admin action: time, name, player ID, what was done |
 | script log | `[dzo_chatcmd]` lines: config summary, problems, and the same audit lines |
 
 ## Privacy and security
@@ -229,7 +231,9 @@ and `foreach` over a function's return value throws a null pointer (assign it to
 ## Upgrading from AdminTools
 
 This mod is the renamed and rewritten AdminTools. On the first start, `profiles/AdminTools/config.json` is
-copied to `profiles/dzo_chatcmd/config.json` if the new file does not exist yet; the old files are left alone.
+copied to `profiles/dzo/chatcmd/config.json` if the new file does not exist yet; the old files are left alone.
+(`profiles/dzo_chatcmd/config.json`, an earlier layout of this mod, is migrated the same way.) The `dzo/`
+folder is shared by all dzo mods.
 Replace `-servermod=@AdminTools` by `-servermod=@dzo_chatcmd` and `AdminTools.bikey` by `dzo_chatcmd.bikey`
 (the key is new). The old chat commands keep working; the config keys are unchanged, new ones were added. `/invisible`
 is gone (see [Limits](#limits)).

@@ -52,13 +52,13 @@ Admin commands typed into the normal in-game chat, for [b]server owners[/b]: tel
 [code]-servermod=@dzo_chatcmd -profiles=profiles[/code]
 Use [b]-servermod=[/b], not -mod=. Players do not have to do anything.
 [*] If your server checks signatures, copy the .bikey from the mod's keys folder into the keys folder of your server.
-[*] Start the server once. It creates [b]profiles/dzo_chatcmd/config.json[/b].
+[*] Start the server once. It creates [b]profiles/dzo/chatcmd/config.json[/b].
 [*] Find your player ID: type [b]/myid[/b] in the chat (it answers to you), or look for your name in the newest .ADM log file in the profiles folder. Put the ID into [b]adminUids[/b] in config.json and restart the server. Later changes to the file can be applied in game with [b]/reload[/b].
 [/olist]
 
 [b]DayZ 1.30:[/b] the profiles folder must be inside the server directory (a symlink there is fine), as for every server on 1.30.
 
-[b]Coming from AdminTools?[/b] This mod is the renamed and rewritten AdminTools. On the first start your old profiles/AdminTools/config.json is copied to profiles/dzo_chatcmd/config.json automatically.
+[b]Coming from AdminTools?[/b] This mod is the renamed and rewritten AdminTools. On the first start your old profiles/AdminTools/config.json is copied to profiles/dzo/chatcmd/config.json automatically.
 
 [h2]Settings[/h2]
 
@@ -72,7 +72,7 @@ The file [b]config.json[/b] holds the admin IDs, the teleport locations, the spa
 [*] [b]maxSpawnCount[/b]: upper limit for /spawn (default 50)
 [*] [b]godModeOnLogin[/b]: admins start every session in god mode (default off)
 [*] [b]notifyTargets[/b]: tell a player when an admin healed, repaired or teleported them (default off)
-[*] [b]auditLog[/b]: write profiles/dzo_chatcmd/audit.log (default on)
+[*] [b]auditLog[/b]: write profiles/dzo/chatcmd/audit.log (default on)
 [*] [b]verbose[/b]: more detail in the script log (default off)
 [/list]
 

@@ -34,11 +34,13 @@ class DZOCCSettings
 
 class DZOCCConfig
 {
-	static const string DIR = "$profile:dzo_chatcmd";
-	static const string FILE = "$profile:dzo_chatcmd/config.json";
-	// location used by this mod before it was renamed from AdminTools
+	static const string BASE_DIR = "$profile:dzo";
+	static const string DIR = "$profile:dzo/chatcmd";
+	static const string FILE = "$profile:dzo/chatcmd/config.json";
+	// locations used before: AdminTools 1.x, and this mod's first layout
 	static const string LEGACY_FILE = "$profile:AdminTools/config.json";
-	static const string AUDIT_FILE = "$profile:dzo_chatcmd/audit.log";
+	static const string LEGACY_FILE2 = "$profile:dzo_chatcmd/config.json";
+	static const string AUDIT_FILE = "$profile:dzo/chatcmd/audit.log";
 
 	protected static ref DZOCCSettings s_Data;
 
@@ -53,13 +55,10 @@ class DZOCCConfig
 	{
 		DZOCCSettings data = new DZOCCSettings();
 
-		if (!FileExist(FILE) && FileExist(LEGACY_FILE))
+		if (!FileExist(FILE))
 		{
-			MakeDirectory(DIR);
-			if (CopyFile(LEGACY_FILE, FILE))
-				DZOCCLog.Info("Migrated config from " + LEGACY_FILE + " to " + FILE + " (old file left in place).");
-			else
-				DZOCCLog.Info("Could not copy " + LEGACY_FILE + " to " + FILE);
+			Migrate(LEGACY_FILE2);
+			Migrate(LEGACY_FILE);
 		}
 
 		if (FileExist(FILE))
@@ -76,7 +75,7 @@ class DZOCCConfig
 		}
 		else
 		{
-			MakeDirectory(DIR);
+			EnsureDir();
 			FillDefaults(data);
 			string saveErr;
 			if (JsonFileLoader<DZOCCSettings>.SaveFile(FILE, data, saveErr))
@@ -109,6 +108,25 @@ class DZOCCConfig
 		DZOCCLog.Info("Config loaded: " + data.adminUids.Count() + " admin(s), " + data.spawnGroups.Count() + " spawn group(s), " + data.teleportLocations.Count() + " location(s), " + data.vehicles.Count() + " vehicle(s)");
 		if (data.adminUids.Count() == 0)
 			DZOCCLog.Info("WARNING: no adminUids configured, all commands are disabled.");
+	}
+
+	protected static void EnsureDir()
+	{
+		MakeDirectory(BASE_DIR);
+		MakeDirectory(DIR);
+	}
+
+	// copies an older config.json to the current place, once, if there is none yet
+	protected static void Migrate(string legacy)
+	{
+		if (FileExist(FILE) || !FileExist(legacy))
+			return;
+
+		EnsureDir();
+		if (CopyFile(legacy, FILE))
+			DZOCCLog.Info("Migrated config from " + legacy + " to " + FILE + " (old file left in place).");
+		else
+			DZOCCLog.Info("Could not copy " + legacy + " to " + FILE);
 	}
 
 	static bool IsAdmin(PlayerIdentity identity)
