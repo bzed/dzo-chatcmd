@@ -85,6 +85,13 @@ The file [b]config.json[/b] holds the admin IDs, the teleport locations, the spa
 [*] /ammo does not refill weapons with an internal magazine (Mosin, shotguns).
 [/list]
 
+[h2]Links[/h2]
+
+[list]
+[*] [url=https://github.com/bzed/dzo-chatcmd/blob/main/README.md]README: installation, all commands, settings[/url]
+[*] [url=https://github.com/bzed/dzo-chatcmd]Source code and issue tracker[/url]
+[/list]
+
 [h2]License[/h2]
 
 Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>. Free software under the GNU Affero General Public License, version 3 or later (AGPL-3.0-or-later).

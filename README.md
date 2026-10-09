@@ -8,6 +8,8 @@ client part. No Community Framework or other dependency. Works on **DayZ 1.29 an
 
 Part of the dzo (DayZ Server Operator) mod collection. Renamed and rewritten from *AdminTools* 1.x.
 
+Source code and issue tracker: <https://github.com/bzed/dzo-chatcmd>
+
 Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>. Licensed AGPL-3.0-or-later, see [`LICENSE`](LICENSE).
 
 ## Contents
@@ -162,7 +164,7 @@ Workshop upload, the [bzed fork of steam-workshop-uploader](https://github.com/b
 
 ```sh
 dayz-mod-pack.sh keygen          # once: secrets/dzo_chatcmd.biprivatekey (git-ignored, back it up) + keys/dzo_chatcmd.bikey
-dayz-mod-pack.sh build           # -> build/@dzo_chatcmd (addons, keys, mod.cpp, meta.cpp)
+dayz-mod-pack.sh build           # -> build/@dzo_chatcmd (addons, keys, meta.cpp)
 dayz-mod-pack.sh check           # no private key in git/upload folder, signatures verify
 dayz-mod-pack.sh publish-hint    # prints the workshop commands
 ```
@@ -172,7 +174,6 @@ Repository layout:
 | Path | Purpose |
 |---|---|
 | `src/dzo_chatcmd/` | the addon (becomes `addons/dzo_chatcmd.pbo`) |
-| `mod.cpp` | mod metadata shown by the launcher |
 | `keys/dzo_chatcmd.bikey` | public key, ships with the mod |
 | `workshop/description.txt` | Steam Workshop description (Steam BBCode) |
 | `workshop/preview.png` | Workshop preview image, 1274x716 |
@@ -201,7 +202,8 @@ workshop --no-prompt update --content build/@dzo_chatcmd --description "$(cat wo
     --preview workshop/preview.png --ignore-file .workshopignore --glob '!*.biprivatekey' -m "changelog"
 ```
 
-The uploader fork writes the item id and a fresh timestamp into `meta.cpp` itself. The tags are `Mod` (required)
+There is no `mod.cpp`: DayZ only needs the `meta.cpp` that the uploader fork writes (item id and fresh timestamp)
+into the content folder on every upload. The tags are `Mod` (required)
 and `Server` (server-side content).
 
 ## Development and testing
@@ -234,7 +236,7 @@ is gone (see [Limits](#limits)).
 
 ## License
 
-Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>
+Copyright (C) 2026 Bernd Zeimetz <bernd@bzed.de>, <https://github.com/bzed/dzo-chatcmd>
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero
 General Public License as published by the Free Software Foundation, either version 3 of the License, or (at
