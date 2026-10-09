@@ -23,6 +23,8 @@ class ATSettings
 	// tell the *target* player about teleports/heals done to them (off: admin actions stay private)
 	bool notifyTargets = false;
 	int maxSpawnCount = 50;
+	// admins get god mode automatically when they log in / respawn
+	bool godModeOnLogin = false;
 	ref map<string, ref array<string>> spawnGroups = new map<string, ref array<string>>();
 	ref map<string, vector> teleportLocations = new map<string, vector>();
 	ref array<string> vehicles = new array<string>();

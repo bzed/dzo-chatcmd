@@ -23,6 +23,17 @@ modded class MissionServer
 		ATConfig.Load();
 	}
 
+	override void InvokeOnConnect(PlayerBase player, PlayerIdentity identity)
+	{
+		super.InvokeOnConnect(player, identity);
+
+		if (player && ATConfig.Get().godModeOnLogin && ATConfig.IsAdmin(identity))
+		{
+			player.AT_SetGod(true);
+			ATLog.Audit(player, "god mode enabled on login");
+		}
+	}
+
 	override void OnEvent(EventType eventTypeId, Param params)
 	{
 		super.OnEvent(eventTypeId, params);

@@ -944,5 +944,6 @@
         "truck": "Truck_01_Covered",
         "humvee": "Offroad_02",
         "boat": "Boat_01"
-    }
+    },
+    "godModeOnLogin": false
 }

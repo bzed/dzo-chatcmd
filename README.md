@@ -50,7 +50,7 @@ partial player/location/group names work (`/tp chern`), ambiguous ones are liste
 
 `adminUids`, `spawnGroups`, `teleportLocations` (as in 1.x), plus `vehicles` (class names for `/car`), `vehicleAliases` (short name -> base class; colors are looked up as `<class>_<Color>`, the boat alias points to `Boat_01` because vanilla has no `Rubber_Boat`),
 `maxSpawnCount`, `auditLog` (write `profiles/AdminTools/audit.log`), `verbose` (extra script-log output),
-`notifyTargets` (tell a healed/brought player; default off).
+`godModeOnLogin` (admins start every session in god mode, default off), `notifyTargets` (tell a healed/brought player; default off).
 
 ## Privacy: what other players can see
 
