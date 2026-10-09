@@ -1,6 +1,8 @@
 # AdminTools
 
-Server-side admin chat commands for DayZ (servermod, no client download, no Community Framework needed).
+Server-side admin chat commands for DayZ. **Servermod only: players never need to download anything**, and
+the mod will not grow a client part (tested: a client without the mod joins and gets all replies).
+No Community Framework needed. Licensed AGPL-3.0-or-later, see `LICENSE`.
 Runs on **1.29 stable and 1.30** from the same PBO (tested on 1.29.163709 and 1.30.164014.27 with a real client).
 
 ## Install
@@ -33,18 +35,20 @@ partial player/location/group names work (`/tp chern`), ambiguous ones are liste
 | `/heal [player]` | health, blood, food/water, diseases, bleeding, legs |
 | `/fixgear [player]` | repair inventory (old: `/fix_gear`) |
 | `/kill [player]`, `/kick <player> [reason]` | |
-| `/godmode [0\|1]`, `/invisible [0\|1]` | toggles, no argument = toggle |
+| `/godmode [0\|1]` | damage immunity, no argument = toggle |
 | `/ammo [0\|1]`, `/stamina [0\|1]` | unlimited ammo (magazine weapons) / stamina |
 | `/spawn <class> [count]` | spawn items at your feet (class is checked first) |
 | `/spawngroup [group]` | spawn a configured group, no argument lists them |
-| `/car [type]` | spawn a fully equipped vehicle from `vehicles` |
+| `/car <name> [color]` | spawn a fully equipped vehicle: `ada`, `gunter`, `olga`, `sarka`, `truck`, `humvee`, `boat` (config `vehicleAliases`) or any class in `vehicles`; `/car ada blue`, a wrong color lists the available ones |
+| `/nearby` | players within 1000 m, nearest first, max 10 |
+| `/broadcast <message>` | message to ALL players (the only command whose output is public) |
 | `/repair` | repair + refuel the vehicle you sit in |
 | `/time [HH[:MM] \| day \| night]` | show/set time |
 | `/reload` | reload config.json |
 
 ## Config (`profiles/AdminTools/config.json`)
 
-`adminUids`, `spawnGroups`, `teleportLocations` (as in 1.x), plus `vehicles` (class names for `/car`),
+`adminUids`, `spawnGroups`, `teleportLocations` (as in 1.x), plus `vehicles` (class names for `/car`), `vehicleAliases` (short name -> base class; colors are looked up as `<class>_<Color>`, the boat alias points to `Boat_01` because vanilla has no `Rubber_Boat`),
 `maxSpawnCount`, `auditLog` (write `profiles/AdminTools/audit.log`), `verbose` (extra script-log output),
 `notifyTargets` (tell a healed/brought player; default off).
 
@@ -59,6 +63,13 @@ partial player/location/group names work (`/tp chern`), ambiguous ones are liste
   mod that sends commands by RPC instead of chat (not part of this mod).
 - Chat only carries the display name, so the mod refuses to act when two online players share a name
   (otherwise someone could copy an admin's name and run commands as them).
+
+## Not possible server-only: invisibility
+
+`/invisible` was removed. `Entity.SetInvisible()`, entity scale and the VISIBLE flag are local to the machine
+that sets them: set on the server, other clients still see the character (checked with a real client and a
+second character: no visible change). Vanilla only calls it client-side. It would need a client mod,
+which this mod deliberately never requires.
 
 ## Layout
 

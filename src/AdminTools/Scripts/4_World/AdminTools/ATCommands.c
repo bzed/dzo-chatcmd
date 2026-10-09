@@ -1,3 +1,20 @@
+// AdminTools - server-side admin chat commands for DayZ
+// Copyright (C) 2026 Bernd Zeimetz
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 class ATCommandInfo
 {
 	string name;
@@ -33,18 +50,19 @@ class ATCommands
 			s_Commands.Insert(new ATCommandInfo("goto", "/goto <player>", "Teleport to a player", "teleport_me_to"));
 			s_Commands.Insert(new ATCommandInfo("bring", "/bring <player>", "Teleport a player to you", "teleport_to_me"));
 			s_Commands.Insert(new ATCommandInfo("back", "/back", "Return to where you were before the last teleport"));
+			s_Commands.Insert(new ATCommandInfo("nearby", "/nearby", "Players within 1000 m, nearest first (max 10)"));
+			s_Commands.Insert(new ATCommandInfo("broadcast", "/broadcast <message>", "Send a message to ALL players", "bc,say"));
 			s_Commands.Insert(new ATCommandInfo("locations", "/locations [filter]", "List teleport locations", "locs"));
 			s_Commands.Insert(new ATCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, bleeding, legs"));
 			s_Commands.Insert(new ATCommandInfo("fixgear", "/fixgear [player]", "Repair all items in the inventory", "fix_gear"));
 			s_Commands.Insert(new ATCommandInfo("kill", "/kill [player]", "Kill a player (default: yourself)"));
 			s_Commands.Insert(new ATCommandInfo("kick", "/kick <player> [reason]", "Disconnect a player"));
 			s_Commands.Insert(new ATCommandInfo("godmode", "/godmode [0|1]", "Damage immunity (no argument: toggle)", "god"));
-			s_Commands.Insert(new ATCommandInfo("invisible", "/invisible [0|1]", "Hide your character from other players", "invis,vanish"));
 			s_Commands.Insert(new ATCommandInfo("ammo", "/ammo [0|1]", "Unlimited ammo for magazine weapons", "unlimited_ammo"));
 			s_Commands.Insert(new ATCommandInfo("stamina", "/stamina [0|1]", "Unlimited stamina", "unlimited_stamina"));
 			s_Commands.Insert(new ATCommandInfo("spawn", "/spawn <classname> [count]", "Spawn item(s) at your feet"));
 			s_Commands.Insert(new ATCommandInfo("spawngroup", "/spawngroup [group]", "Spawn a configured item group (no argument: list)", "group,groups"));
-			s_Commands.Insert(new ATCommandInfo("car", "/car [type]", "Spawn a fully equipped vehicle (no argument: list)"));
+			s_Commands.Insert(new ATCommandInfo("car", "/car <name> [color]", "Spawn a fully equipped vehicle, e.g. /car ada black (no argument: list)"));
 			s_Commands.Insert(new ATCommandInfo("repair", "/repair", "Repair and refuel the vehicle you are in"));
 			s_Commands.Insert(new ATCommandInfo("time", "/time [HH[:MM] | day | night]", "Show or set the server time"));
 			s_Commands.Insert(new ATCommandInfo("reload", "/reload", "Reload config.json"));
@@ -124,13 +142,14 @@ class ATCommands
 			case "goto":      GotoPlayer(ctx); break;
 			case "bring":     Bring(ctx); break;
 			case "back":      Back(ctx); break;
+			case "nearby":    Nearby(ctx); break;
+			case "broadcast": Broadcast(ctx); break;
 			case "locations": Locations(ctx); break;
 			case "heal":      Heal(ctx); break;
 			case "fixgear":   FixGear(ctx); break;
 			case "kill":      Kill(ctx); break;
 			case "kick":      Kick(ctx); break;
 			case "godmode":   God(ctx); break;
-			case "invisible": Invisible(ctx); break;
 			case "ammo":      UnlimitedAmmo(ctx); break;
 			case "stamina":   UnlimitedStamina(ctx); break;
 			case "spawn":     Spawn(ctx); break;
@@ -226,6 +245,71 @@ class ATCommands
 			entries.Insert(entry);
 		}
 		ctx.ReplyList(entries.Count().ToString() + " online: ", entries);
+	}
+
+	protected static void Nearby(ATContext ctx)
+	{
+		float RANGE = 1000.0;
+		int MAX_ENTRIES = 10;
+
+		array<Man> men = new array<Man>;
+		GetGame().GetPlayers(men);
+
+		array<string> names = new array<string>;
+		array<float> distances = new array<float>;
+		foreach (Man man : men)
+		{
+			PlayerBase pb = PlayerBase.Cast(man);
+			if (!pb || pb == ctx.admin || !pb.GetIdentity())
+				continue;
+
+			float dist = vector.Distance(pb.GetPosition(), ctx.admin.GetPosition());
+			if (dist > RANGE)
+				continue;
+
+			// insertion sort, nearest first
+			int at = 0;
+			while (at < distances.Count() && distances[at] <= dist)
+				at++;
+			names.InsertAt(pb.GetIdentity().GetName(), at);
+			distances.InsertAt(dist, at);
+		}
+
+		array<string> entries = new array<string>;
+		for (int i = 0; i < names.Count() && i < MAX_ENTRIES; i++)
+			entries.Insert(names[i] + " (" + Math.Round(distances[i]) + " m)");
+
+		if (entries.Count() == 0)
+		{
+			ctx.Reply("Nobody within 1000 m.");
+			return;
+		}
+		ctx.ReplyList(entries.Count().ToString() + " within 1000 m: ", entries);
+	}
+
+	protected static void Broadcast(ATContext ctx)
+	{
+		string text = ctx.Rest(0);
+		if (text.Length() == 0)
+		{
+			Usage(ctx);
+			return;
+		}
+
+		array<Man> men = new array<Man>;
+		GetGame().GetPlayers(men);
+		int sent = 0;
+		foreach (Man man : men)
+		{
+			PlayerBase pb = PlayerBase.Cast(man);
+			if (pb && pb.GetIdentity())
+			{
+				pb.MessageImportant("[Broadcast] " + text);
+				sent++;
+			}
+		}
+		ctx.Reply("Broadcast sent to " + sent + " player(s).");
+		ctx.Audit("broadcast: " + text);
 	}
 
 	protected static void Pos(ATContext ctx)
@@ -467,16 +551,6 @@ class ATCommands
 		ctx.Audit("god mode " + OnOff(mode == 1));
 	}
 
-	protected static void Invisible(ATContext ctx)
-	{
-		int mode = ParseSwitch(ctx, ctx.admin.m_AT_Invisible);
-		if (mode < 0)
-			return;
-		ctx.admin.AT_SetInvisible(mode == 1);
-		ctx.Reply("Invisibility " + OnOff(mode == 1) + ".");
-		ctx.Audit("invisibility " + OnOff(mode == 1));
-	}
-
 	protected static void UnlimitedAmmo(ATContext ctx)
 	{
 		int mode = ParseSwitch(ctx, ctx.admin.m_AT_UnlimitedAmmo);
@@ -567,18 +641,83 @@ class ATCommands
 		ctx.Audit("spawned group " + groupName + " (" + spawned + " items) at " + ATUtil.FormatPos(ctx.admin.GetPosition()));
 	}
 
+	// Colors that exist as <base>_<Color> classes in this game version
+	protected static void ColorsOf(string baseClass, array<string> found)
+	{
+		array<string> candidates = new array<string>;
+		"Black,Blue,White,Red,Grey,Wine,Orange,Green,Yellow,Camo".Split(",", candidates);
+		foreach (string candidate : candidates)
+		{
+			if (ATUtil.ClassExists(baseClass + "_" + candidate))
+				found.Insert(candidate);
+		}
+	}
+
 	protected static void SpawnCar(ATContext ctx)
 	{
-		array<string> vehicles = ATConfig.Get().vehicles;
+		ATSettings cfg = ATConfig.Get();
+		map<string, string> aliases = cfg.vehicleAliases;
+
+		// selectable names: aliases first, then plain classnames from "vehicles"
+		array<string> names = aliases.GetKeyArray();
+		names.Sort();
+		foreach (string listed : cfg.vehicles)
+		{
+			if (names.Find(listed) == -1)
+				names.Insert(listed);
+		}
+
 		if (ctx.args.Count() == 0)
 		{
-			ctx.ReplyList("Vehicles: ", vehicles);
+			ctx.ReplyList("Vehicles: ", names);
+			ctx.Reply("Usage: /car <name> [color], e.g. /car ada black");
 			return;
 		}
 
-		string carType = ctx.FindName(vehicles, ctx.Arg(0), "vehicle");
-		if (carType.Length() == 0)
+		string choice = ctx.FindName(names, ctx.Arg(0), "vehicle");
+		if (choice.Length() == 0)
 			return;
+
+		string baseClass = choice;
+		if (aliases.Contains(choice))
+			baseClass = aliases.Get(choice);
+
+		string carType;
+		string color = ctx.Arg(1);
+		color.ToLower();
+		if (color.Length() == 0 || color == "default")
+		{
+			carType = baseClass;
+			if (!ATUtil.ClassExists(carType))
+			{
+				// no plain version (boats): take the first color that exists
+				array<string> any = new array<string>;
+				ColorsOf(baseClass, any);
+				if (any.Count() == 0)
+				{
+					ctx.Reply(baseClass + " does not exist in this game version.");
+					return;
+				}
+				carType = baseClass + "_" + any[0];
+			}
+		}
+		else
+		{
+			string first = color.Substring(0, 1);
+			first.ToUpper();
+			string cased = first + color.Substring(1, color.Length() - 1);
+			carType = baseClass + "_" + cased;
+			if (!ATUtil.ClassExists(carType))
+			{
+				array<string> available = new array<string>;
+				ColorsOf(baseClass, available);
+				if (available.Count() == 0)
+					ctx.Reply(choice + " only comes in the default color.");
+				else
+					ctx.ReplyList(choice + " colors: ", available);
+				return;
+			}
+		}
 
 		// a few meters in front of the admin
 		vector pos = ctx.admin.GetPosition() + ctx.admin.GetDirection() * 5;

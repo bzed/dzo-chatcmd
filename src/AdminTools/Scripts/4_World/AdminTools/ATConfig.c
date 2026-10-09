@@ -1,3 +1,20 @@
+// AdminTools - server-side admin chat commands for DayZ
+// Copyright (C) 2026 Bernd Zeimetz
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 class ATSettings
 {
 	ref array<string> adminUids = new array<string>();
@@ -9,6 +26,8 @@ class ATSettings
 	ref map<string, ref array<string>> spawnGroups = new map<string, ref array<string>>();
 	ref map<string, vector> teleportLocations = new map<string, vector>();
 	ref array<string> vehicles = new array<string>();
+	// short name -> base classname for /car ("ada": "OffroadHatchback")
+	ref map<string, string> vehicleAliases = new map<string, string>();
 }
 
 class ATConfig
@@ -65,6 +84,11 @@ class ATConfig
 			data.vehicles = new array<string>();
 			FillDefaultVehicles(data.vehicles);
 		}
+		if (!data.vehicleAliases || data.vehicleAliases.Count() == 0)
+		{
+			data.vehicleAliases = new map<string, string>();
+			FillDefaultAliases(data.vehicleAliases);
+		}
 		if (data.maxSpawnCount < 1)
 			data.maxSpawnCount = 1;
 
@@ -91,8 +115,21 @@ class ATConfig
 		list.Insert("CivilianSedan");
 	}
 
+	protected static void FillDefaultAliases(map<string, string> aliases)
+	{
+		aliases.Insert("ada", "OffroadHatchback");
+		aliases.Insert("gunter", "Hatchback_02");
+		aliases.Insert("olga", "CivilianSedan");
+		aliases.Insert("sarka", "Sedan_02");
+		aliases.Insert("truck", "Truck_01_Covered");
+		aliases.Insert("humvee", "Offroad_02");
+		// vanilla has no Rubber_Boat; the boat class is Boat_01_<Color>
+		aliases.Insert("boat", "Boat_01");
+	}
+
 	protected static void FillDefaults(ATSettings data)
 	{
+		FillDefaultAliases(data.vehicleAliases);
 		FillDefaultVehicles(data.vehicles);
 		array<string> medics = {"BandageDressing", "BandageDressing", "Splint", "Morphine", "TetracyclineAntibiotics", "CharcoalTablets", "IodineTincture", "SalineBagIV"};
 		array<string> food = {"SpaghettiCan", "SpaghettiCan", "TacticalBaconCan", "Canteen"};

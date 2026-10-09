@@ -935,5 +935,14 @@
             -22.9,
             683.262634
         ]
+    },
+    "vehicleAliases": {
+        "ada": "OffroadHatchback",
+        "gunter": "Hatchback_02",
+        "olga": "CivilianSedan",
+        "sarka": "Sedan_02",
+        "truck": "Truck_01_Covered",
+        "humvee": "Offroad_02",
+        "boat": "Boat_01"
     }
 }
