@@ -164,7 +164,7 @@ Workshop upload, the [bzed fork of steam-workshop-uploader](https://github.com/b
 
 ```sh
 dayz-mod-pack.sh keygen          # once: secrets/dzo_chatcmd.biprivatekey (git-ignored, back it up) + keys/dzo_chatcmd.bikey
-dayz-mod-pack.sh build           # -> build/@dzo_chatcmd (addons, keys, meta.cpp)
+dayz-mod-pack.sh build           # -> build/@dzo_chatcmd (addons, keys, mod.cpp, meta.cpp)
 dayz-mod-pack.sh check           # no private key in git/upload folder, signatures verify
 dayz-mod-pack.sh publish-hint    # prints the workshop commands
 ```
@@ -174,6 +174,7 @@ Repository layout:
 | Path | Purpose |
 |---|---|
 | `src/dzo_chatcmd/` | the addon (becomes `addons/dzo_chatcmd.pbo`) |
+| `mod.cpp` | mod metadata shown by the launcher (optional, kept for now) |
 | `keys/dzo_chatcmd.bikey` | public key, ships with the mod |
 | `workshop/description.txt` | Steam Workshop description (Steam BBCode) |
 | `workshop/preview.png` | Workshop preview image, 1274x716 |
@@ -202,8 +203,8 @@ workshop --no-prompt update --content build/@dzo_chatcmd --description "$(cat wo
     --preview workshop/preview.png --ignore-file .workshopignore --glob '!*.biprivatekey' -m "changelog"
 ```
 
-There is no `mod.cpp`: DayZ only needs the `meta.cpp` that the uploader fork writes (item id and fresh timestamp)
-into the content folder on every upload. The only Workshop tag is `Server` (type tag for server mods; there is no `servermod` tag, and `Mod` is not combined with it).
+`mod.cpp` is optional (DayZ only needs the `meta.cpp` that the uploader fork writes, with item id and fresh
+timestamp, into the content folder on every upload); it is kept for now. The only Workshop tag is `Server` (type tag for server mods; there is no `servermod` tag, and `Mod` is not combined with it).
 
 ## Development and testing
 
