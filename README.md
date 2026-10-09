@@ -81,7 +81,7 @@ deliberately never requires.
 ## Layout
 
 `src/dzo_chatcmd/Scripts/4_World/dzo_chatcmd/` (config, commands, helpers, `PlayerBase` flags),
-`5_Mission/MissionServer.c` (chat hook). Add a command: one `ATCommandInfo` line in `ATCommands.GetCommands()`
+`5_Mission/MissionServer.c` (chat hook). Add a command: one `DZOCCCommandInfo` line in `DZOCCCommands.GetCommands()`
 (this is also the help text), one `case` in `Run()`, one handler.
 
 ## Known gaps

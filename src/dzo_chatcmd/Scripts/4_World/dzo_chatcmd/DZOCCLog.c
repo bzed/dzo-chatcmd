@@ -16,7 +16,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 // Logging: everything goes to the script log, admin actions also to $profile:dzo_chatcmd/audit.log.
-class ATLog
+class DZOCCLog
 {
 	static const string TAG = "[dzo_chatcmd] ";
 
@@ -27,7 +27,7 @@ class ATLog
 
 	static void Debug(string msg)
 	{
-		if (ATConfig.Get().verbose)
+		if (DZOCCConfig.Get().verbose)
 			Print(TAG + "DEBUG " + msg);
 	}
 
@@ -38,13 +38,13 @@ class ATLog
 		if (admin && admin.GetIdentity())
 			who = admin.GetIdentity().GetName() + " (" + admin.GetIdentity().GetId() + ")";
 
-		string line = ATUtil.Timestamp() + " " + who + ": " + action;
+		string line = DZOCCUtil.Timestamp() + " " + who + ": " + action;
 		Print(TAG + "AUDIT " + line);
 
-		if (!ATConfig.Get().auditLog)
+		if (!DZOCCConfig.Get().auditLog)
 			return;
 
-		FileHandle fh = OpenFile(ATConfig.AUDIT_FILE, FileMode.APPEND);
+		FileHandle fh = OpenFile(DZOCCConfig.AUDIT_FILE, FileMode.APPEND);
 		if (fh != 0)
 		{
 			FPrintln(fh, line);

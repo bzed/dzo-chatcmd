@@ -20,17 +20,17 @@ modded class MissionServer
 	override void OnInit()
 	{
 		super.OnInit();
-		ATConfig.Load();
+		DZOCCConfig.Load();
 	}
 
 	override void InvokeOnConnect(PlayerBase player, PlayerIdentity identity)
 	{
 		super.InvokeOnConnect(player, identity);
 
-		if (player && ATConfig.Get().godModeOnLogin && ATConfig.IsAdmin(identity))
+		if (player && DZOCCConfig.Get().godModeOnLogin && DZOCCConfig.IsAdmin(identity))
 		{
-			player.AT_SetGod(true);
-			ATLog.Audit(player, "god mode enabled on login");
+			player.DZOCC_SetGod(true);
+			DZOCCLog.Audit(player, "god mode enabled on login");
 		}
 	}
 
@@ -49,14 +49,14 @@ modded class MissionServer
 		if (text.Length() < 2 || text.Get(0) != "/")
 			return;
 
-		PlayerBase sender = AT_FindSender(chat.param2);
+		PlayerBase sender = DZOCC_FindSender(chat.param2);
 		if (sender)
-			ATCommands.Handle(sender, text);
+			DZOCCCommands.Handle(sender, text);
 	}
 
 	// The chat event only carries the display name. If two players share it we cannot tell who typed the
 	// command (and a non-admin could impersonate an admin by copying the name), so we refuse.
-	protected PlayerBase AT_FindSender(string name)
+	protected PlayerBase DZOCC_FindSender(string name)
 	{
 		array<Man> men = new array<Man>;
 		GetGame().GetPlayers(men);
@@ -70,7 +70,7 @@ modded class MissionServer
 
 			if (found)
 			{
-				ATLog.Info("Ignoring chat command: several players are named '" + name + "'");
+				DZOCCLog.Info("Ignoring chat command: several players are named '" + name + "'");
 				return null;
 			}
 			found = pb;

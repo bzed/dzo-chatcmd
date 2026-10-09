@@ -15,14 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-class ATCommandInfo
+class DZOCCCommandInfo
 {
 	string name;
 	string usage;
 	string description;
 	ref array<string> aliases = new array<string>;
 
-	void ATCommandInfo(string n, string u, string d, string a = "")
+	void DZOCCCommandInfo(string n, string u, string d, string a = "")
 	{
 		name = n;
 		usage = u;
@@ -32,52 +32,52 @@ class ATCommandInfo
 	}
 }
 
-// Chat commands. Entry point: ATCommands.Handle(). Replies go to the sending admin only.
-class ATCommands
+// Chat commands. Entry point: DZOCCCommands.Handle(). Replies go to the sending admin only.
+class DZOCCCommands
 {
-	protected static ref array<ref ATCommandInfo> s_Commands;
+	protected static ref array<ref DZOCCCommandInfo> s_Commands;
 
-	static array<ref ATCommandInfo> GetCommands()
+	static array<ref DZOCCCommandInfo> GetCommands()
 	{
 		if (!s_Commands)
 		{
-			s_Commands = new array<ref ATCommandInfo>;
-			s_Commands.Insert(new ATCommandInfo("help", "/help [command]", "List commands, or show details of one", "?,commands"));
-			s_Commands.Insert(new ATCommandInfo("myid", "/myid", "Show your player ID (works for everybody)"));
-			s_Commands.Insert(new ATCommandInfo("players", "/players", "List online players with distance", "who,list"));
-			s_Commands.Insert(new ATCommandInfo("pos", "/pos [player]", "Show position (usable with /tp x z)", "where"));
-			s_Commands.Insert(new ATCommandInfo("tp", "/tp <location | player | x z>", "Teleport yourself", "teleport"));
-			s_Commands.Insert(new ATCommandInfo("goto", "/goto <player>", "Teleport to a player", "teleport_me_to"));
-			s_Commands.Insert(new ATCommandInfo("bring", "/bring <player>", "Teleport a player to you", "teleport_to_me"));
-			s_Commands.Insert(new ATCommandInfo("back", "/back", "Return to where you were before the last teleport"));
-			s_Commands.Insert(new ATCommandInfo("nearby", "/nearby", "Players within 1000 m, nearest first (max 10)"));
-			s_Commands.Insert(new ATCommandInfo("broadcast", "/broadcast <message>", "Send a message to ALL players", "bc,say"));
-			s_Commands.Insert(new ATCommandInfo("locations", "/locations [filter]", "List teleport locations", "locs"));
-			s_Commands.Insert(new ATCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, bleeding, legs"));
-			s_Commands.Insert(new ATCommandInfo("fixgear", "/fixgear [player]", "Repair all items in the inventory", "fix_gear"));
-			s_Commands.Insert(new ATCommandInfo("kill", "/kill [player]", "Kill a player (default: yourself)"));
-			s_Commands.Insert(new ATCommandInfo("kick", "/kick <player> [reason]", "Disconnect a player"));
-			s_Commands.Insert(new ATCommandInfo("godmode", "/godmode [0|1]", "Damage immunity (no argument: toggle)", "god"));
-			s_Commands.Insert(new ATCommandInfo("ammo", "/ammo [0|1]", "Unlimited ammo for magazine weapons", "unlimited_ammo"));
-			s_Commands.Insert(new ATCommandInfo("stamina", "/stamina [0|1]", "Unlimited stamina", "unlimited_stamina"));
-			s_Commands.Insert(new ATCommandInfo("spawn", "/spawn <classname> [count]", "Spawn item(s) at your feet"));
-			s_Commands.Insert(new ATCommandInfo("spawngroup", "/spawngroup [group]", "Spawn a configured item group (no argument: list)", "group,groups"));
-			s_Commands.Insert(new ATCommandInfo("car", "/car <name> [color]", "Spawn a fully equipped vehicle, e.g. /car ada black (no argument: list)"));
-			s_Commands.Insert(new ATCommandInfo("repair", "/repair", "Repair and refuel the vehicle you are in"));
-			s_Commands.Insert(new ATCommandInfo("time", "/time [HH[:MM] | day | night]", "Show or set the server time"));
-			s_Commands.Insert(new ATCommandInfo("reload", "/reload", "Reload config.json"));
+			s_Commands = new array<ref DZOCCCommandInfo>;
+			s_Commands.Insert(new DZOCCCommandInfo("help", "/help [command]", "List commands, or show details of one", "?,commands"));
+			s_Commands.Insert(new DZOCCCommandInfo("myid", "/myid", "Show your player ID (works for everybody)"));
+			s_Commands.Insert(new DZOCCCommandInfo("players", "/players", "List online players with distance", "who,list"));
+			s_Commands.Insert(new DZOCCCommandInfo("pos", "/pos [player]", "Show position (usable with /tp x z)", "where"));
+			s_Commands.Insert(new DZOCCCommandInfo("tp", "/tp <location | player | x z>", "Teleport yourself", "teleport"));
+			s_Commands.Insert(new DZOCCCommandInfo("goto", "/goto <player>", "Teleport to a player", "teleport_me_to"));
+			s_Commands.Insert(new DZOCCCommandInfo("bring", "/bring <player>", "Teleport a player to you", "teleport_to_me"));
+			s_Commands.Insert(new DZOCCCommandInfo("back", "/back", "Return to where you were before the last teleport"));
+			s_Commands.Insert(new DZOCCCommandInfo("nearby", "/nearby", "Players within 1000 m, nearest first (max 10)"));
+			s_Commands.Insert(new DZOCCCommandInfo("broadcast", "/broadcast <message>", "Send a message to ALL players", "bc,say"));
+			s_Commands.Insert(new DZOCCCommandInfo("locations", "/locations [filter]", "List teleport locations", "locs"));
+			s_Commands.Insert(new DZOCCCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, bleeding, legs"));
+			s_Commands.Insert(new DZOCCCommandInfo("fixgear", "/fixgear [player]", "Repair all items in the inventory", "fix_gear"));
+			s_Commands.Insert(new DZOCCCommandInfo("kill", "/kill [player]", "Kill a player (default: yourself)"));
+			s_Commands.Insert(new DZOCCCommandInfo("kick", "/kick <player> [reason]", "Disconnect a player"));
+			s_Commands.Insert(new DZOCCCommandInfo("godmode", "/godmode [0|1]", "Damage immunity (no argument: toggle)", "god"));
+			s_Commands.Insert(new DZOCCCommandInfo("ammo", "/ammo [0|1]", "Unlimited ammo for magazine weapons", "unlimited_ammo"));
+			s_Commands.Insert(new DZOCCCommandInfo("stamina", "/stamina [0|1]", "Unlimited stamina", "unlimited_stamina"));
+			s_Commands.Insert(new DZOCCCommandInfo("spawn", "/spawn <classname> [count]", "Spawn item(s) at your feet"));
+			s_Commands.Insert(new DZOCCCommandInfo("spawngroup", "/spawngroup [group]", "Spawn a configured item group (no argument: list)", "group,groups"));
+			s_Commands.Insert(new DZOCCCommandInfo("car", "/car <name> [color]", "Spawn a fully equipped vehicle, e.g. /car ada black (no argument: list)"));
+			s_Commands.Insert(new DZOCCCommandInfo("repair", "/repair", "Repair and refuel the vehicle you are in"));
+			s_Commands.Insert(new DZOCCCommandInfo("time", "/time [HH[:MM] | day | night]", "Show or set the server time"));
+			s_Commands.Insert(new DZOCCCommandInfo("reload", "/reload", "Reload config.json"));
 		}
 		return s_Commands;
 	}
 
-	protected static ATCommandInfo FindCommand(string name)
+	protected static DZOCCCommandInfo FindCommand(string name)
 	{
 		string lname = name;
 		lname.ToLower();
-		array<ref ATCommandInfo> all = GetCommands();
+		array<ref DZOCCCommandInfo> all = GetCommands();
 		for (int i = 0; i < all.Count(); i++)
 		{
-			ATCommandInfo info = all[i];
+			DZOCCCommandInfo info = all[i];
 			if (info.name == lname || info.aliases.Find(lname) != -1)
 				return info;
 		}
@@ -103,11 +103,11 @@ class ATCommands
 		if (parts.Count() == 0)
 			return false;
 
-		ATCommandInfo info = FindCommand(parts[0]);
+		DZOCCCommandInfo info = FindCommand(parts[0]);
 		if (!info)
 			return false;
 
-		ATContext ctx = new ATContext();
+		DZOCCContext ctx = new DZOCCContext();
 		ctx.admin = sender;
 		ctx.command = info.name;
 		for (int i = 1; i < parts.Count(); i++)
@@ -120,18 +120,18 @@ class ATCommands
 			return true;
 		}
 
-		if (!ATConfig.IsAdmin(sender.GetIdentity()))
+		if (!DZOCCConfig.IsAdmin(sender.GetIdentity()))
 		{
-			ATLog.Debug("ignored /" + info.name + " from non-admin " + sender.GetIdentity().GetName());
+			DZOCCLog.Debug("ignored /" + info.name + " from non-admin " + sender.GetIdentity().GetName());
 			return false;
 		}
 
-		ATLog.Debug("/" + info.name + " " + ctx.Rest(0) + " from " + sender.GetIdentity().GetName());
+		DZOCCLog.Debug("/" + info.name + " " + ctx.Rest(0) + " from " + sender.GetIdentity().GetName());
 		Run(info, ctx);
 		return true;
 	}
 
-	protected static void Run(ATCommandInfo info, ATContext ctx)
+	protected static void Run(DZOCCCommandInfo info, DZOCCContext ctx)
 	{
 		switch (info.name)
 		{
@@ -161,15 +161,15 @@ class ATCommands
 		}
 	}
 
-	protected static void Usage(ATContext ctx)
+	protected static void Usage(DZOCCContext ctx)
 	{
-		ATCommandInfo info = FindCommand(ctx.command);
+		DZOCCCommandInfo info = FindCommand(ctx.command);
 		if (info)
 			ctx.Reply("Usage: " + info.usage);
 	}
 
 	// 0 = off, 1 = on, no argument = toggle. Returns -1 on bad input.
-	protected static int ParseSwitch(ATContext ctx, bool current)
+	protected static int ParseSwitch(DZOCCContext ctx, bool current)
 	{
 		string arg = ctx.Arg(0);
 		arg.ToLower();
@@ -191,26 +191,26 @@ class ATCommands
 	}
 
 	// Teleport that remembers where the player came from; refuses while in a vehicle.
-	protected static bool MoveTo(ATContext ctx, PlayerBase who, vector pos)
+	protected static bool MoveTo(DZOCCContext ctx, PlayerBase who, vector pos)
 	{
 		if (who.IsInTransport())
 		{
 			ctx.Reply(who.GetIdentity().GetName() + " is in a vehicle, cannot teleport.");
 			return false;
 		}
-		who.m_AT_LastPos = who.GetPosition();
-		who.m_AT_HasLastPos = true;
+		who.m_DZOCC_LastPos = who.GetPosition();
+		who.m_DZOCC_HasLastPos = true;
 		who.SetPosition(pos);
 		return true;
 	}
 
 	// ---- information ----
 
-	protected static void Help(ATContext ctx)
+	protected static void Help(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() > 0)
 		{
-			ATCommandInfo info = FindCommand(ctx.Arg(0));
+			DZOCCCommandInfo info = FindCommand(ctx.Arg(0));
 			if (!info)
 			{
 				ctx.Reply("No such command: " + ctx.Arg(0));
@@ -218,17 +218,17 @@ class ATCommands
 			}
 			ctx.Reply(info.usage + " - " + info.description);
 			if (info.aliases.Count() > 0)
-				ctx.Reply("Aliases: /" + ATUtil.Join(", /", info.aliases));
+				ctx.Reply("Aliases: /" + DZOCCUtil.Join(", /", info.aliases));
 			return;
 		}
 
 		ctx.Reply("Commands (admin only, answers are private; /help <command> for details):");
-		array<ref ATCommandInfo> all = GetCommands();
+		array<ref DZOCCCommandInfo> all = GetCommands();
 		for (int i = 0; i < all.Count(); i++)
 			ctx.Reply(all[i].usage + " - " + all[i].description);
 	}
 
-	protected static void Players(ATContext ctx)
+	protected static void Players(DZOCCContext ctx)
 	{
 		array<Man> men = new array<Man>;
 		GetGame().GetPlayers(men);
@@ -247,7 +247,7 @@ class ATCommands
 		ctx.ReplyList(entries.Count().ToString() + " online: ", entries);
 	}
 
-	protected static void Nearby(ATContext ctx)
+	protected static void Nearby(DZOCCContext ctx)
 	{
 		float RANGE = 1000.0;
 		int MAX_ENTRIES = 10;
@@ -287,7 +287,7 @@ class ATCommands
 		ctx.ReplyList(entries.Count().ToString() + " within 1000 m: ", entries);
 	}
 
-	protected static void Broadcast(ATContext ctx)
+	protected static void Broadcast(DZOCCContext ctx)
 	{
 		string text = ctx.Rest(0);
 		if (text.Length() == 0)
@@ -312,7 +312,7 @@ class ATCommands
 		ctx.Audit("broadcast: " + text);
 	}
 
-	protected static void Pos(ATContext ctx)
+	protected static void Pos(DZOCCContext ctx)
 	{
 		PlayerBase target = ctx.admin;
 		if (ctx.args.Count() > 0)
@@ -321,12 +321,12 @@ class ATCommands
 			if (!target)
 				return;
 		}
-		ctx.Reply(target.GetIdentity().GetName() + ": " + ATUtil.FormatPos(target.GetPosition()));
+		ctx.Reply(target.GetIdentity().GetName() + ": " + DZOCCUtil.FormatPos(target.GetPosition()));
 	}
 
-	protected static void Locations(ATContext ctx)
+	protected static void Locations(DZOCCContext ctx)
 	{
-		array<string> names = ATConfig.Get().teleportLocations.GetKeyArray();
+		array<string> names = DZOCCConfig.Get().teleportLocations.GetKeyArray();
 		if (names.Count() == 0)
 		{
 			ctx.Reply("No teleport locations configured.");
@@ -349,7 +349,7 @@ class ATCommands
 
 	// ---- teleport ----
 
-	protected static void Teleport(ATContext ctx)
+	protected static void Teleport(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() == 0)
 		{
@@ -358,30 +358,30 @@ class ATCommands
 		}
 
 		// /tp x z
-		if (ctx.args.Count() == 2 && ATUtil.IsNumeric(ctx.Arg(0)) && ATUtil.IsNumeric(ctx.Arg(1)))
+		if (ctx.args.Count() == 2 && DZOCCUtil.IsNumeric(ctx.Arg(0)) && DZOCCUtil.IsNumeric(ctx.Arg(1)))
 		{
 			vector coords = Vector(ctx.Arg(0).ToFloat(), 0, ctx.Arg(1).ToFloat());
-			if (MoveTo(ctx, ctx.admin, ATUtil.SnapToGround(coords)))
+			if (MoveTo(ctx, ctx.admin, DZOCCUtil.SnapToGround(coords)))
 			{
-				ctx.Reply("Teleported to " + ATUtil.FormatPos(ctx.admin.GetPosition()));
-				ctx.Audit("teleported to " + ATUtil.FormatPos(ctx.admin.GetPosition()));
+				ctx.Reply("Teleported to " + DZOCCUtil.FormatPos(ctx.admin.GetPosition()));
+				ctx.Audit("teleported to " + DZOCCUtil.FormatPos(ctx.admin.GetPosition()));
 			}
 			return;
 		}
 
 		string query = ctx.Rest(0);
-		array<string> locationNames = ATConfig.Get().teleportLocations.GetKeyArray();
+		array<string> locationNames = DZOCCConfig.Get().teleportLocations.GetKeyArray();
 
 		// locations first, then players
 		array<int> locHits;
-		ATUtil.MatchIndices(locationNames, query, locHits);
+		DZOCCUtil.MatchIndices(locationNames, query, locHits);
 		if (locHits.Count() > 0)
 		{
 			string locName = ctx.FindName(locationNames, query, "location");
 			if (locName.Length() == 0)
 				return;
-			vector locPos = ATConfig.Get().teleportLocations.Get(locName);
-			if (MoveTo(ctx, ctx.admin, ATUtil.SnapToGround(locPos)))
+			vector locPos = DZOCCConfig.Get().teleportLocations.Get(locName);
+			if (MoveTo(ctx, ctx.admin, DZOCCUtil.SnapToGround(locPos)))
 			{
 				ctx.Reply("Teleported to " + locName);
 				ctx.Audit("teleported to location " + locName);
@@ -399,7 +399,7 @@ class ATCommands
 		}
 	}
 
-	protected static void GotoPlayer(ATContext ctx)
+	protected static void GotoPlayer(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() == 0)
 		{
@@ -416,7 +416,7 @@ class ATCommands
 		}
 	}
 
-	protected static void Bring(ATContext ctx)
+	protected static void Bring(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() == 0)
 		{
@@ -430,28 +430,28 @@ class ATCommands
 		{
 			ctx.Reply("Brought " + target.GetIdentity().GetName() + " to you.");
 			ctx.NotifyTarget(target, "You were teleported.");
-			ctx.Audit("brought player " + target.GetIdentity().GetName() + " to " + ATUtil.FormatPos(ctx.admin.GetPosition()));
+			ctx.Audit("brought player " + target.GetIdentity().GetName() + " to " + DZOCCUtil.FormatPos(ctx.admin.GetPosition()));
 		}
 	}
 
-	protected static void Back(ATContext ctx)
+	protected static void Back(DZOCCContext ctx)
 	{
-		if (!ctx.admin.m_AT_HasLastPos)
+		if (!ctx.admin.m_DZOCC_HasLastPos)
 		{
 			ctx.Reply("No previous position.");
 			return;
 		}
-		vector previous = ctx.admin.m_AT_LastPos;
+		vector previous = ctx.admin.m_DZOCC_LastPos;
 		if (MoveTo(ctx, ctx.admin, previous))
 		{
-			ctx.Reply("Back at " + ATUtil.FormatPos(previous));
-			ctx.Audit("teleported back to " + ATUtil.FormatPos(previous));
+			ctx.Reply("Back at " + DZOCCUtil.FormatPos(previous));
+			ctx.Audit("teleported back to " + DZOCCUtil.FormatPos(previous));
 		}
 	}
 
 	// ---- players ----
 
-	protected static void Heal(ATContext ctx)
+	protected static void Heal(DZOCCContext ctx)
 	{
 		PlayerBase target = ctx.admin;
 		if (ctx.args.Count() > 0)
@@ -486,7 +486,7 @@ class ATCommands
 		ctx.Audit("healed " + target.GetIdentity().GetName());
 	}
 
-	protected static void FixGear(ATContext ctx)
+	protected static void FixGear(DZOCCContext ctx)
 	{
 		PlayerBase target = ctx.admin;
 		if (ctx.args.Count() > 0)
@@ -501,7 +501,7 @@ class ATCommands
 		ctx.Audit("repaired gear of " + target.GetIdentity().GetName());
 	}
 
-	protected static void Kill(ATContext ctx)
+	protected static void Kill(DZOCCContext ctx)
 	{
 		PlayerBase target = ctx.admin;
 		if (ctx.args.Count() > 0)
@@ -511,13 +511,13 @@ class ATCommands
 				return;
 		}
 		// god mode would swallow the damage
-		target.AT_SetGod(false);
+		target.DZOCC_SetGod(false);
 		target.SetHealth("", "", 0);
 		ctx.Reply("Killed " + target.GetIdentity().GetName() + ".");
 		ctx.Audit("killed " + target.GetIdentity().GetName());
 	}
 
-	protected static void Kick(ATContext ctx)
+	protected static void Kick(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() == 0)
 		{
@@ -541,32 +541,32 @@ class ATCommands
 
 	// ---- toggles ----
 
-	protected static void God(ATContext ctx)
+	protected static void God(DZOCCContext ctx)
 	{
-		int mode = ParseSwitch(ctx, ctx.admin.m_AT_God);
+		int mode = ParseSwitch(ctx, ctx.admin.m_DZOCC_God);
 		if (mode < 0)
 			return;
-		ctx.admin.AT_SetGod(mode == 1);
+		ctx.admin.DZOCC_SetGod(mode == 1);
 		ctx.Reply("God mode " + OnOff(mode == 1) + ".");
 		ctx.Audit("god mode " + OnOff(mode == 1));
 	}
 
-	protected static void UnlimitedAmmo(ATContext ctx)
+	protected static void UnlimitedAmmo(DZOCCContext ctx)
 	{
-		int mode = ParseSwitch(ctx, ctx.admin.m_AT_UnlimitedAmmo);
+		int mode = ParseSwitch(ctx, ctx.admin.m_DZOCC_UnlimitedAmmo);
 		if (mode < 0)
 			return;
-		ctx.admin.m_AT_UnlimitedAmmo = (mode == 1);
+		ctx.admin.m_DZOCC_UnlimitedAmmo = (mode == 1);
 		ctx.Reply("Unlimited ammo " + OnOff(mode == 1) + ".");
 		ctx.Audit("unlimited ammo " + OnOff(mode == 1));
 	}
 
-	protected static void UnlimitedStamina(ATContext ctx)
+	protected static void UnlimitedStamina(DZOCCContext ctx)
 	{
-		int mode = ParseSwitch(ctx, ctx.admin.m_AT_UnlimitedStamina);
+		int mode = ParseSwitch(ctx, ctx.admin.m_DZOCC_UnlimitedStamina);
 		if (mode < 0)
 			return;
-		ctx.admin.m_AT_UnlimitedStamina = (mode == 1);
+		ctx.admin.m_DZOCC_UnlimitedStamina = (mode == 1);
 		ctx.Reply("Unlimited stamina " + OnOff(mode == 1) + ".");
 		ctx.Audit("unlimited stamina " + OnOff(mode == 1));
 	}
@@ -578,7 +578,7 @@ class ATCommands
 		return EntityAI.Cast(GetGame().CreateObjectEx(className, pos, ECE_PLACE_ON_SURFACE | ECE_INITAI | ECE_EQUIP_ATTACHMENTS));
 	}
 
-	protected static void Spawn(ATContext ctx)
+	protected static void Spawn(DZOCCContext ctx)
 	{
 		if (ctx.args.Count() < 1 || ctx.args.Count() > 2)
 		{
@@ -590,9 +590,9 @@ class ATCommands
 		int count = 1;
 		if (ctx.args.Count() == 2)
 			count = ctx.Arg(1).ToInt();
-		count = Math.Clamp(count, 1, ATConfig.Get().maxSpawnCount);
+		count = Math.Clamp(count, 1, DZOCCConfig.Get().maxSpawnCount);
 
-		if (!ATUtil.ClassExists(className))
+		if (!DZOCCUtil.ClassExists(className))
 		{
 			ctx.Reply("Unknown classname: " + className);
 			return;
@@ -605,12 +605,12 @@ class ATCommands
 				spawned++;
 		}
 		ctx.Reply("Spawned " + spawned + "x " + className);
-		ctx.Audit("spawned " + spawned + "x " + className + " at " + ATUtil.FormatPos(ctx.admin.GetPosition()));
+		ctx.Audit("spawned " + spawned + "x " + className + " at " + DZOCCUtil.FormatPos(ctx.admin.GetPosition()));
 	}
 
-	protected static void SpawnGroup(ATContext ctx)
+	protected static void SpawnGroup(DZOCCContext ctx)
 	{
-		map<string, ref array<string>> groups = ATConfig.Get().spawnGroups;
+		map<string, ref array<string>> groups = DZOCCConfig.Get().spawnGroups;
 		array<string> groupNames = groups.GetKeyArray();
 
 		if (ctx.args.Count() == 0)
@@ -629,7 +629,7 @@ class ATCommands
 		array<string> members = groups.Get(groupName);
 		foreach (string className : members)
 		{
-			if (ATUtil.ClassExists(className) && SpawnAt(className, ctx.admin.GetPosition()))
+			if (DZOCCUtil.ClassExists(className) && SpawnAt(className, ctx.admin.GetPosition()))
 				spawned++;
 			else
 				failed.Insert(className);
@@ -638,7 +638,7 @@ class ATCommands
 		ctx.Reply("Spawned " + spawned + " item(s) from '" + groupName + "'.");
 		if (failed.Count() > 0)
 			ctx.ReplyList("Could not spawn: ", failed);
-		ctx.Audit("spawned group " + groupName + " (" + spawned + " items) at " + ATUtil.FormatPos(ctx.admin.GetPosition()));
+		ctx.Audit("spawned group " + groupName + " (" + spawned + " items) at " + DZOCCUtil.FormatPos(ctx.admin.GetPosition()));
 	}
 
 	// Colors that exist as <base>_<Color> classes in this game version
@@ -648,14 +648,14 @@ class ATCommands
 		"Black,Blue,White,Red,Grey,Wine,Orange,Green,Yellow,Camo".Split(",", candidates);
 		foreach (string candidate : candidates)
 		{
-			if (ATUtil.ClassExists(baseClass + "_" + candidate))
+			if (DZOCCUtil.ClassExists(baseClass + "_" + candidate))
 				found.Insert(candidate);
 		}
 	}
 
-	protected static void SpawnCar(ATContext ctx)
+	protected static void SpawnCar(DZOCCContext ctx)
 	{
-		ATSettings cfg = ATConfig.Get();
+		DZOCCSettings cfg = DZOCCConfig.Get();
 		map<string, string> aliases = cfg.vehicleAliases;
 
 		// selectable names: aliases first, then plain classnames from "vehicles"
@@ -688,7 +688,7 @@ class ATCommands
 		if (color.Length() == 0 || color == "default")
 		{
 			carType = baseClass;
-			if (!ATUtil.ClassExists(carType))
+			if (!DZOCCUtil.ClassExists(carType))
 			{
 				// no plain version (boats): take the first color that exists
 				array<string> any = new array<string>;
@@ -707,7 +707,7 @@ class ATCommands
 			first.ToUpper();
 			string cased = first + color.Substring(1, color.Length() - 1);
 			carType = baseClass + "_" + cased;
-			if (!ATUtil.ClassExists(carType))
+			if (!DZOCCUtil.ClassExists(carType))
 			{
 				array<string> available = new array<string>;
 				ColorsOf(baseClass, available);
@@ -730,10 +730,10 @@ class ATCommands
 		vehicle.SetOrientation(ctx.admin.GetOrientation());
 		vehicle.OnDebugSpawn();
 		ctx.Reply("Spawned " + carType + " (parts, fluids and battery included).");
-		ctx.Audit("spawned vehicle " + carType + " at " + ATUtil.FormatPos(pos));
+		ctx.Audit("spawned vehicle " + carType + " at " + DZOCCUtil.FormatPos(pos));
 	}
 
-	protected static void Repair(ATContext ctx)
+	protected static void Repair(DZOCCContext ctx)
 	{
 		Transport vehicle = Transport.Cast(ctx.admin.GetParent());
 		if (!vehicle)
@@ -775,14 +775,14 @@ class ATCommands
 
 	// ---- world / admin ----
 
-	protected static void ShowTime(ATContext ctx)
+	protected static void ShowTime(DZOCCContext ctx)
 	{
 		int year, month, day, hour, minute;
 		GetGame().GetWorld().GetDate(year, month, day, hour, minute);
 
 		if (ctx.args.Count() == 0)
 		{
-			ctx.Reply("Server time: " + ATUtil.Pad2(hour) + ":" + ATUtil.Pad2(minute));
+			ctx.Reply("Server time: " + DZOCCUtil.Pad2(hour) + ":" + DZOCCUtil.Pad2(minute));
 			return;
 		}
 
@@ -798,7 +798,7 @@ class ATCommands
 		{
 			array<string> hm = new array<string>;
 			arg.Split(":", hm);
-			if (hm.Count() < 1 || hm.Count() > 2 || !ATUtil.IsNumeric(hm[0]) || (hm.Count() == 2 && !ATUtil.IsNumeric(hm[1])))
+			if (hm.Count() < 1 || hm.Count() > 2 || !DZOCCUtil.IsNumeric(hm[0]) || (hm.Count() == 2 && !DZOCCUtil.IsNumeric(hm[1])))
 			{
 				Usage(ctx);
 				return;
@@ -814,13 +814,13 @@ class ATCommands
 		}
 
 		GetGame().GetWorld().SetDate(year, month, day, newHour, newMinute);
-		ctx.Reply("Time set to " + ATUtil.Pad2(newHour) + ":" + ATUtil.Pad2(newMinute));
-		ctx.Audit("set time to " + ATUtil.Pad2(newHour) + ":" + ATUtil.Pad2(newMinute));
+		ctx.Reply("Time set to " + DZOCCUtil.Pad2(newHour) + ":" + DZOCCUtil.Pad2(newMinute));
+		ctx.Audit("set time to " + DZOCCUtil.Pad2(newHour) + ":" + DZOCCUtil.Pad2(newMinute));
 	}
 
-	protected static void Reload(ATContext ctx)
+	protected static void Reload(DZOCCContext ctx)
 	{
-		ATConfig.Load();
+		DZOCCConfig.Load();
 		ctx.Reply("Config reloaded.");
 		ctx.Audit("reloaded config");
 	}

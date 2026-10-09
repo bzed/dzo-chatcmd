@@ -16,7 +16,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 // One parsed command invocation. All output goes through Reply(), which only reaches the sending admin.
-class ATContext
+class DZOCCContext
 {
 	PlayerBase admin;
 	string command;
@@ -32,7 +32,7 @@ class ATContext
 	// Everything from argument <index> on, joined (player and location names may contain spaces)
 	string Rest(int index)
 	{
-		string text = ATUtil.Join(" ", args, index);
+		string text = DZOCCUtil.Join(" ", args, index);
 		text.TrimInPlace();
 		return text;
 	}
@@ -65,13 +65,13 @@ class ATContext
 
 	void Audit(string action)
 	{
-		ATLog.Audit(admin, action);
+		DZOCCLog.Audit(admin, action);
 	}
 
 	// Tells <target> what happened to them - only if notifyTargets is enabled and it is somebody else
 	void NotifyTarget(PlayerBase target, string text)
 	{
-		if (target != admin && ATConfig.Get().notifyTargets)
+		if (target != admin && DZOCCConfig.Get().notifyTargets)
 			target.MessageStatus("[dzo_chatcmd] " + text);
 	}
 
@@ -97,7 +97,7 @@ class ATContext
 		}
 
 		array<int> hits;
-		ATUtil.MatchIndices(names, query, hits);
+		DZOCCUtil.MatchIndices(names, query, hits);
 		if (hits.Count() == 1)
 			return players[hits[0]];
 
@@ -118,7 +118,7 @@ class ATContext
 	string FindName(array<string> names, string query, string what)
 	{
 		array<int> hits;
-		ATUtil.MatchIndices(names, query, hits);
+		DZOCCUtil.MatchIndices(names, query, hits);
 		if (hits.Count() == 1)
 			return names[hits[0]];
 

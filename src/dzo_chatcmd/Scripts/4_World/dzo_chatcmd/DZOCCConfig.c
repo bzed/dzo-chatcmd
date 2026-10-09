@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-class ATSettings
+class DZOCCSettings
 {
 	ref array<string> adminUids = new array<string>();
 	bool verbose = false;
@@ -32,7 +32,7 @@ class ATSettings
 	ref map<string, string> vehicleAliases = new map<string, string>();
 }
 
-class ATConfig
+class DZOCCConfig
 {
 	static const string DIR = "$profile:dzo_chatcmd";
 	static const string FILE = "$profile:dzo_chatcmd/config.json";
@@ -40,9 +40,9 @@ class ATConfig
 	static const string LEGACY_FILE = "$profile:AdminTools/config.json";
 	static const string AUDIT_FILE = "$profile:dzo_chatcmd/audit.log";
 
-	protected static ref ATSettings s_Data;
+	protected static ref DZOCCSettings s_Data;
 
-	static ATSettings Get()
+	static DZOCCSettings Get()
 	{
 		if (!s_Data)
 			Load();
@@ -51,26 +51,26 @@ class ATConfig
 
 	static void Load()
 	{
-		ATSettings data = new ATSettings();
+		DZOCCSettings data = new DZOCCSettings();
 
 		if (!FileExist(FILE) && FileExist(LEGACY_FILE))
 		{
 			MakeDirectory(DIR);
 			if (CopyFile(LEGACY_FILE, FILE))
-				ATLog.Info("Migrated config from " + LEGACY_FILE + " to " + FILE + " (old file left in place).");
+				DZOCCLog.Info("Migrated config from " + LEGACY_FILE + " to " + FILE + " (old file left in place).");
 			else
-				ATLog.Info("Could not copy " + LEGACY_FILE + " to " + FILE);
+				DZOCCLog.Info("Could not copy " + LEGACY_FILE + " to " + FILE);
 		}
 
 		if (FileExist(FILE))
 		{
 			string err;
-			if (!JsonFileLoader<ATSettings>.LoadFile(FILE, data, err))
+			if (!JsonFileLoader<DZOCCSettings>.LoadFile(FILE, data, err))
 			{
 				// keep the previous config if there is one, never fall back to "everybody is admin"
-				ATLog.Info("Cannot load " + FILE + ": " + err);
+				DZOCCLog.Info("Cannot load " + FILE + ": " + err);
 				if (!s_Data)
-					s_Data = new ATSettings();
+					s_Data = new DZOCCSettings();
 				return;
 			}
 		}
@@ -79,10 +79,10 @@ class ATConfig
 			MakeDirectory(DIR);
 			FillDefaults(data);
 			string saveErr;
-			if (JsonFileLoader<ATSettings>.SaveFile(FILE, data, saveErr))
-				ATLog.Info("No config found, wrote defaults to " + FILE + ". Add your player ID to adminUids.");
+			if (JsonFileLoader<DZOCCSettings>.SaveFile(FILE, data, saveErr))
+				DZOCCLog.Info("No config found, wrote defaults to " + FILE + ". Add your player ID to adminUids.");
 			else
-				ATLog.Info("Cannot write default config: " + saveErr);
+				DZOCCLog.Info("Cannot write default config: " + saveErr);
 		}
 
 		// Missing keys / nulls from hand-edited JSON
@@ -106,9 +106,9 @@ class ATConfig
 			data.maxSpawnCount = 1;
 
 		s_Data = data;
-		ATLog.Info("Config loaded: " + data.adminUids.Count() + " admin(s), " + data.spawnGroups.Count() + " spawn group(s), " + data.teleportLocations.Count() + " location(s), " + data.vehicles.Count() + " vehicle(s)");
+		DZOCCLog.Info("Config loaded: " + data.adminUids.Count() + " admin(s), " + data.spawnGroups.Count() + " spawn group(s), " + data.teleportLocations.Count() + " location(s), " + data.vehicles.Count() + " vehicle(s)");
 		if (data.adminUids.Count() == 0)
-			ATLog.Info("WARNING: no adminUids configured, all commands are disabled.");
+			DZOCCLog.Info("WARNING: no adminUids configured, all commands are disabled.");
 	}
 
 	static bool IsAdmin(PlayerIdentity identity)
@@ -140,7 +140,7 @@ class ATConfig
 		aliases.Insert("boat", "Boat_01");
 	}
 
-	protected static void FillDefaults(ATSettings data)
+	protected static void FillDefaults(DZOCCSettings data)
 	{
 		FillDefaultAliases(data.vehicleAliases);
 		FillDefaultVehicles(data.vehicles);

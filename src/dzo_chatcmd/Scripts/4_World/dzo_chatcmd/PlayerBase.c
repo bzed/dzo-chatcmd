@@ -18,11 +18,11 @@
 // Server-side state for the toggle commands. Nothing here is synchronized to clients.
 modded class PlayerBase
 {
-	bool m_AT_God;
-	bool m_AT_UnlimitedAmmo;
-	bool m_AT_UnlimitedStamina;
-	bool m_AT_HasLastPos;
-	vector m_AT_LastPos;
+	bool m_DZOCC_God;
+	bool m_DZOCC_UnlimitedAmmo;
+	bool m_DZOCC_UnlimitedStamina;
+	bool m_DZOCC_HasLastPos;
+	vector m_DZOCC_LastPos;
 
 	override void OnScheduledTick(float deltaTime)
 	{
@@ -31,15 +31,15 @@ modded class PlayerBase
 		if (!GetGame().IsServer())
 			return;
 
-		if (m_AT_UnlimitedStamina && GetStaminaHandler())
+		if (m_DZOCC_UnlimitedStamina && GetStaminaHandler())
 			GetStaminaHandler().SetStamina(GameConstants.STAMINA_MAX);
 
-		if (m_AT_UnlimitedAmmo)
-			AT_RefillMagazine();
+		if (m_DZOCC_UnlimitedAmmo)
+			DZOCC_RefillMagazine();
 
 	}
 
-	protected void AT_RefillMagazine()
+	protected void DZOCC_RefillMagazine()
 	{
 		Weapon_Base weapon = Weapon_Base.Cast(GetItemInHands());
 		if (!weapon)
@@ -50,9 +50,9 @@ modded class PlayerBase
 			magazine.ServerSetAmmoCount(magazine.GetAmmoMax());
 	}
 
-	void AT_SetGod(bool enabled)
+	void DZOCC_SetGod(bool enabled)
 	{
-		m_AT_God = enabled;
+		m_DZOCC_God = enabled;
 		SetAllowDamage(!enabled);
 	}
 }
