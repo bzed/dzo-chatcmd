@@ -8,8 +8,8 @@ Runs on **1.29 stable and 1.30** from the same PBO (tested on 1.29.163709 and 1.
 1. Build/sign: `dayz-mod-pack.sh build`, copy `build/@AdminTools` to the server, put `keys/AdminTools.bikey` into the server's `keys/`.
 2. Start with `-servermod=@AdminTools`.
 3. First start writes `profiles/AdminTools/config.json`. Put your player ID into `adminUids`
-   (type `/myid` in chat, or read it from the `.ADM` log: `Player "name"(id=...)`) and send `/reload`.
-   Your own ID is not yet an admin on a fresh install, so on the first run edit the file and restart once.
+   (type `/myid` in chat, or read it from the `.ADM` log: `Player "name"(id=...)`) and restart the server.
+   Later edits to the file can be applied with `/reload`.
 4. **1.30:** `-profiles=` must be a folder inside the server directory (symlink is fine). The mod reads and writes
    `$profile:` files directly (no `FindFile`), so nothing else is needed.
 
