@@ -179,7 +179,7 @@ Repository layout:
 | `workshop/preview.png` | Workshop preview image, 1274x716 |
 | `workshop/preview-square.png` | square preview, 512x512 |
 | `examples/config.json` | full example configuration |
-| `.dayzmod` | tool config: mod name and Workshop tag (`servermod`) |
+| `.dayzmod` | tool config: mod name and Workshop tag (`Server`) |
 
 ### Workshop upload
 
@@ -189,7 +189,7 @@ upload creates the item (keep it private until checked):
 ```sh
 workshop create --app-id 221100 --content build/@dzo_chatcmd --title "dzo_chatcmd" \
     --description "$(cat workshop/description.txt)" --preview workshop/preview.png \
-    -t servermod --ignore-file .workshopignore --glob '!*.biprivatekey' \
+    -t Server --ignore-file .workshopignore --glob '!*.biprivatekey' \
     --visibility private -m "first upload"
 cp build/@dzo_chatcmd/workshop.toml workshop.toml && git add workshop.toml   # the item id is not secret
 ```
@@ -203,8 +203,7 @@ workshop --no-prompt update --content build/@dzo_chatcmd --description "$(cat wo
 ```
 
 There is no `mod.cpp`: DayZ only needs the `meta.cpp` that the uploader fork writes (item id and fresh timestamp)
-into the content folder on every upload. The only Workshop tag is `servermod`.
-(`dayz-mod-pack.sh check` insists on the `Mod` tag and reports a FAIL for this; that rule of the script is not applied here.)
+into the content folder on every upload. The only Workshop tag is `Server` (type tag for server mods; there is no `servermod` tag, and `Mod` is not combined with it).
 
 ## Development and testing
 
