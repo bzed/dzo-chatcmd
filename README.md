@@ -162,7 +162,8 @@ Booleans may be `true`/`false`.
 ## Building, signing, publishing
 
 Needs the [bzed fork of armake2](https://github.com/bzed/armake2) (upstream does not sign `.c` files) and, for
-Workshop upload, the [bzed fork of steam-workshop-uploader](https://github.com/bzed/steam-workshop-uploader).
+Workshop upload, the upstream [steam-workshop-uploader](https://github.com/nozwock/steam-workshop-uploader)
+(`workshop`; it supports DayZ and keeps `meta.cpp` current, no fork needed).
 
 ```sh
 dayz-mod-pack.sh keygen          # once: secrets/dzo_chatcmd.biprivatekey (git-ignored, back it up) + keys/dzo_chatcmd.bikey
@@ -205,7 +206,7 @@ workshop --no-prompt update --content build/@dzo_chatcmd --description "$(cat wo
     --preview workshop/preview.png --ignore-file .workshopignore --glob '!*.biprivatekey' -m "changelog"
 ```
 
-`mod.cpp` is optional (DayZ only needs the `meta.cpp` that the uploader fork writes, with item id and fresh
+`mod.cpp` is optional (DayZ only needs the `meta.cpp` that the uploader writes, with item id and fresh
 timestamp, into the content folder on every upload); it is kept for now. The only Workshop tag is `Server` (type tag for server mods; there is no `servermod` tag, and `Mod` is not combined with it).
 
 ## Development and testing
