@@ -66,10 +66,12 @@ partial player/location/group names work (`/tp chern`), ambiguous ones are liste
 
 ## Not possible server-only: invisibility
 
-`/invisible` was removed. `Entity.SetInvisible()`, entity scale and the VISIBLE flag are local to the machine
-that sets them: set on the server, other clients still see the character (checked with a real client and a
-second character: no visible change). Vanilla only calls it client-side. It would need a client mod,
-which this mod deliberately never requires.
+`/invisible` was removed. Test with a real client (1.29, daylight, screenshots of a spawned player figure and a
+zombie in front of the camera): `SetInvisible()` + `SetInvisibleRecursive()` set on the **server** changed nothing
+for either figure; the same calls on the **client** hid the zombie (so the screenshots can show it) but did not
+hide a player body at all. Entity scale and the VISIBLE flag were also ineffective. Vanilla only uses these
+client-side, for clothing in optics. Hiding a player from others would need a client mod, which this mod
+deliberately never requires.
 
 ## Layout
 
