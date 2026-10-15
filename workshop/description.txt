@@ -29,6 +29,7 @@ Admin commands typed into the normal in-game chat, for [b]server owners[/b]: tel
 [tr][td][b]/back[/b][/td][td]Return to where you were before the last teleport[/td][/tr]
 [tr][td][b]/locations[/b] [filter][/td][td]List the teleport locations from the config[/td][/tr]
 [tr][td][b]/heal[/b] [player][/td][td]Health, blood, food, water, diseases, bleeding, broken legs[/td][/tr]
+[tr][td][b]/wet[/b] [player][/td][td]Soak all worn clothes (cooling on hot maps)[/td][/tr]
 [tr][td][b]/fixgear[/b] [player][/td][td]Repair everything in the inventory[/td][/tr]
 [tr][td][b]/kill[/b] [player], [b]/kick[/b] <player> [reason][/td][td]Kill / disconnect a player[/td][/tr]
 [tr][td][b]/godmode[/b] [0|1][/td][td]Damage immunity (no argument: toggle)[/td][/tr]

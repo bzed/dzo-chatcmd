@@ -68,7 +68,8 @@ back to you and nothing happens.
 | `/bring <player>` | `/teleport_to_me` | teleport a player to you |
 | `/back` | | return to the position before your last teleport |
 | `/locations [filter]` | `/locs` | list the configured teleport locations |
-| `/heal [player]` | | full heal: health, blood, food, water, diseases, bleeding, broken legs, unconsciousness |
+| `/heal [player]` | | full heal: health, blood, food, water, diseases (incl. heat stroke), bleeding, broken legs, unconsciousness; heat comfort lowered, heat buffer emptied |
+| `/wet [player]` | | make all worn clothes soaking wet (cools down on hot maps) |
 | `/fixgear [player]` | `/fix_gear` | repair every item in the inventory |
 | `/kill [player]` | | kill a player (default: yourself; god mode is switched off first) |
 | `/kick <player> [reason]` | | disconnect a player (not yourself) |

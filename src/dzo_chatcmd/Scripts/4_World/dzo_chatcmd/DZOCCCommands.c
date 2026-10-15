@@ -55,6 +55,7 @@ class DZOCCCommands
 			s_Commands.Insert(new DZOCCCommandInfo("locations", "/locations [filter]", "List teleport locations", "locs"));
 			s_Commands.Insert(new DZOCCCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, heat stroke, bleeding, legs; heat comfort lowered"));
 			s_Commands.Insert(new DZOCCCommandInfo("fixgear", "/fixgear [player]", "Repair all items in the inventory", "fix_gear"));
+			s_Commands.Insert(new DZOCCCommandInfo("wet", "/wet [player]", "Make all worn clothes soaking wet (cools down on hot maps)"));
 			s_Commands.Insert(new DZOCCCommandInfo("kill", "/kill [player]", "Kill a player (default: yourself)"));
 			s_Commands.Insert(new DZOCCCommandInfo("kick", "/kick <player> [reason]", "Disconnect a player"));
 			s_Commands.Insert(new DZOCCCommandInfo("godmode", "/godmode [0|1]", "Damage immunity (no argument: toggle)", "god"));
@@ -147,6 +148,7 @@ class DZOCCCommands
 			case "locations": Locations(ctx); break;
 			case "heal":      Heal(ctx); break;
 			case "fixgear":   FixGear(ctx); break;
+			case "wet":       Wet(ctx); break;
 			case "kill":      Kill(ctx); break;
 			case "kick":      Kick(ctx); break;
 			case "godmode":   God(ctx); break;
@@ -471,13 +473,14 @@ class DZOCCCommands
 			bleeding.RemoveAllSources();
 
 		target.SetHealth("", "", target.GetMaxHealth("", ""));
-		target.SetHeatBufferDynamicMax(3.0);
 		if (target.IsUnconscious())
 			DayZPlayerSyncJunctures.SendPlayerUnconsciousness(target, false);
 
 		target.GetStatWater().Set(target.GetStatWater().GetMax());
 		target.GetStatEnergy().Set(target.GetStatEnergy().GetMax());
-		target.GetStatHeatBuffer().Set(target.GetStatHeatBuffer().GetMax());
+		// the heat buffer is a warmth reserve (cold protection); while it is filled, heat comfort is
+		// clamped to >= 0. Empty it so heat comfort can go as low as we want.
+		target.GetStatHeatBuffer().Set(0.0);
 		target.SetBloodyHands(false);
 		target.SetBrokenLegs(eBrokenLegs.NO_BROKEN_LEGS);
 
@@ -510,6 +513,36 @@ class DZOCCCommands
 		ctx.Reply("Repaired the gear of " + target.GetIdentity().GetName() + ".");
 		ctx.NotifyTarget(target, "Your gear was repaired.");
 		ctx.Audit("repaired gear of " + target.GetIdentity().GetName());
+	}
+
+	protected static void Wet(DZOCCContext ctx)
+	{
+		PlayerBase target = ctx.admin;
+		if (ctx.args.Count() > 0)
+		{
+			target = ctx.FindPlayer(ctx.Rest(0));
+			if (!target)
+				return;
+		}
+
+		int count = 0;
+		GameInventory inventory = target.GetInventory();
+		if (inventory)
+		{
+			for (int i = 0; i < inventory.AttachmentCount(); i++)
+			{
+				ItemBase item = ItemBase.Cast(inventory.GetAttachmentFromIndex(i));
+				if (item && item.IsClothing())
+				{
+					item.SetWetMax();
+					count++;
+				}
+			}
+		}
+
+		ctx.Reply("Soaked " + count + " worn item(s) of " + target.GetIdentity().GetName() + ".");
+		ctx.NotifyTarget(target, "Your clothes were soaked.");
+		ctx.Audit("soaked clothes of " + target.GetIdentity().GetName());
 	}
 
 	protected static void Kill(DZOCCContext ctx)
