@@ -53,7 +53,7 @@ class DZOCCCommands
 			s_Commands.Insert(new DZOCCCommandInfo("nearby", "/nearby", "Players within 1000 m, nearest first (max 10)"));
 			s_Commands.Insert(new DZOCCCommandInfo("broadcast", "/broadcast <message>", "Send a message to ALL players", "bc,say"));
 			s_Commands.Insert(new DZOCCCommandInfo("locations", "/locations [filter]", "List teleport locations", "locs"));
-			s_Commands.Insert(new DZOCCCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, bleeding, legs"));
+			s_Commands.Insert(new DZOCCCommandInfo("heal", "/heal [player]", "Full heal: health, blood, food, water, diseases, heat stroke, bleeding, legs; heat comfort lowered"));
 			s_Commands.Insert(new DZOCCCommandInfo("fixgear", "/fixgear [player]", "Repair all items in the inventory", "fix_gear"));
 			s_Commands.Insert(new DZOCCCommandInfo("kill", "/kill [player]", "Kill a player (default: yourself)"));
 			s_Commands.Insert(new DZOCCCommandInfo("kick", "/kick <player> [reason]", "Disconnect a player"));
@@ -480,6 +480,17 @@ class DZOCCCommands
 		target.GetStatHeatBuffer().Set(target.GetStatHeatBuffer().GetMax());
 		target.SetBloodyHands(false);
 		target.SetBrokenLegs(eBrokenLegs.NO_BROKEN_LEGS);
+
+		// Heat: drop heat comfort to just above the cold-damage threshold (the lowest healthy
+		// value) and clear the 1.30 heat stroke (driven by the thermal bias, which would
+		// otherwise re-trigger the modifiers right after ResetAll).
+		target.GetStatHeatComfort().Set(PlayerConstants.THRESHOLD_HEAT_COMFORT_MINUS_WARNING + 0.05);
+		ThermalBiasHandler thermalBias = target.GetThermalBiasHandler();
+		if (thermalBias)
+		{
+			thermalBias.Set(0.0);
+			thermalBias.SetTemporaryResistance(PlayerConstants.THERMAL_BIAS_WASH_HEAD_TEMPORARY_RESISTANCE_TIME);
+		}
 
 		ctx.Reply("Healed " + target.GetIdentity().GetName() + ".");
 		ctx.NotifyTarget(target, "You were healed.");
